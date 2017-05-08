@@ -47,7 +47,7 @@ public class ServerService extends PawServerService {
 		execAutostartScripts = false;
 		showUrlInNotification = false;
 		notificationTitle = "Start iobroker.paw";
-		notificationMessage = "Notification Message";
+		notificationMessage = "Message";
 		appName = getString(R.string.app_name);
 		activityClass = "de.fun2code.android.pawserver.ServerActivity";
 		notificationDrawableId = R.drawable.ic_launcher;
