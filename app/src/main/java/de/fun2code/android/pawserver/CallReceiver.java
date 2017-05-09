@@ -31,35 +31,33 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+
+
 public class CallReceiver extends BroadcastReceiver {
     private static boolean incomingCall = false;
-
+    public String Number;
     @Override
     public void onReceive(Context context, Intent intent) {
         String TAG = "iobroker.paw";
-        Log.i(TAG, "Заработало");
         if (intent.getAction().equals("android.intent.action.PHONE_STATE")) {
             String phoneState = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
             Log.i(TAG, "действие "+phoneState);
             if (phoneState.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
                 //Трубка не поднята, телефон звонит
                 String phoneNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
+                Number = phoneNumber;
                 incomingCall = true;
-                new RequestTask().execute("http://192.168.1.31:8898");
+                new RequestTask().execute("http://192.168.1.31:8898","incoming",phoneNumber);
                 Log.i(TAG, "звонок"+ phoneNumber);
             } else if (phoneState.equals(TelephonyManager.EXTRA_STATE_OFFHOOK)) {
                 //Телефон находится в режиме звонка (набор номера при исходящем звонке / разговор)
-                if (incomingCall) {
-                    Log.i(TAG, "разговор");
-                    incomingCall = false;
-                }
+                new RequestTask().execute("http://192.168.1.31:8898","connection",Number);
+                Log.i(TAG, "разговор");
             } else if (phoneState.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
                 //Телефон находится в ждущем режиме - это событие наступает по окончанию разговора
                 //или в ситуации "отказался поднимать трубку и сбросил звонок".
-                if (incomingCall) {
-                    Log.i(TAG, "сбросил звонок");
-                    incomingCall = false;
-                }
+                new RequestTask().execute("http://192.168.1.31:8898","disconnection",Number);
+                Log.i(TAG, "сбросил звонок");
             }
         }
     }
@@ -67,12 +65,14 @@ public class CallReceiver extends BroadcastReceiver {
 
     class RequestTask extends AsyncTask<String, String, String> {
 
-        @Override
-        protected String doInBackground(String... params) {
 
+        @Override
+
+        protected String doInBackground(String... params) {
             String TAG = "iobroker.paw";
 
-            Log.i(TAG, "ура ");
+                Log.i(TAG, " "+params.length );
+
             try {
                 //создаем запрос на сервер
                 DefaultHttpClient hc = new DefaultHttpClient();
@@ -82,9 +82,9 @@ public class CallReceiver extends BroadcastReceiver {
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
                 //передаем параметры из наших текстбоксов
                 //лоигн
-                nameValuePairs.add(new BasicNameValuePair("login", "12121"));
+                nameValuePairs.add(new BasicNameValuePair("call", params[1]));
                 //пароль
-                nameValuePairs.add(new BasicNameValuePair("pass","333333"));
+                nameValuePairs.add(new BasicNameValuePair("number",params[2]));
                 //собераем их вместе и посылаем на сервер
                 postMethod.setEntity(new UrlEncodedFormEntity(nameValuePairs));
                 //получаем ответ от сервера

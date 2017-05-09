@@ -2,7 +2,7 @@ package de.fun2code.android.pawserver;
 
 /**
  * Sample "Build your own PAW server" Service.
- * 
+ *
  *
  */
 public class ServerService extends PawServerService {
@@ -10,14 +10,14 @@ public class ServerService extends PawServerService {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		
+
 		/*
 		 * Individual settings.
 		 */
 		init();
 	}
-	
-	
+
+
 	/*
 	 * Service options are:
 	 * TAG = Tag name for message logging.
@@ -35,7 +35,9 @@ public class ServerService extends PawServerService {
 	 * activityClass = Activity class name.
 	 * notificationDrawableId = ID of the notification icon to display.
 	 */
-	
+
+
+
 	private void init() {
 		TAG = getString(R.string.app_name);
 		startedOnBoot = false;
@@ -52,5 +54,5 @@ public class ServerService extends PawServerService {
 		activityClass = "de.fun2code.android.pawserver.ServerActivity";
 		notificationDrawableId = R.drawable.ic_launcher;
 	}
-	
+
 }

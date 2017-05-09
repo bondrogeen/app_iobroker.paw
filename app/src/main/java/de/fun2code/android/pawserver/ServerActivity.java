@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
+import android.content.SharedPreferences;
 import android.widget.CompoundButton;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +15,7 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 import de.fun2code.android.pawserver.listener.ServiceListener;
 import de.fun2code.android.pawserver.util.Utils;
-
+import de.fun2code.android.pawserver.PawServerService;
 
 
 /**
@@ -39,17 +40,18 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
 
 
 	public void onCreate(Bundle savedInstanceState) {
+
 		TAG = "iobroker.paw";
-		INSTALL_DIR = getFilesDir().getAbsolutePath() + "/www";
-
+		INSTALL_DIR = android.os.Environment.getExternalStorageDirectory().getAbsolutePath()+ "/www";
+		String onfig = INSTALL_DIR + "/conf/ser.xml";
+		Log.i(TAG, "INSTALL_DIR "+INSTALL_DIR);
 		calledFromRuntime = true;
-
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		handler = new Handler();
-
 		viewUrl = (TextView) findViewById(R.id.url);
         //viewtvOut = (TextView) findViewById(R.id.tvOut);
+
 
 		ToggleButton toggle = (ToggleButton) findViewById(R.id.toggleButton);
 		toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -150,6 +152,7 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
 		if (success) {
 			// Display URL
 			PawServerService service = ServerService.getService();
+
 			final String url = service.getPawServer().server.protocol
 					+ "://" + Utils.getLocalIpAddress() + ":"
 					+ service.getPawServer().serverPort;
