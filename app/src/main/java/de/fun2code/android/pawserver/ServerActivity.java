@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import android.content.SharedPreferences;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.content.Intent;
 import android.os.Bundle;
@@ -81,7 +83,44 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
 		 * Register activity with service.
 		 */
 		ServerService.setActivity(this);
+
+
+
+
+
 	}
+
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.menu_main, menu);
+		return true;
+
+	}
+
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// получим идентификатор выбранного пункта меню
+		int id = item.getItemId();
+
+		TextView TextView = (TextView) findViewById(R.id.url);
+
+		// Операции для выбранного пункта меню
+		switch (id) {
+			case R.id.action_settings:
+
+				//Log.i(TAG, "Settings Start");
+				//setContentView(R.layout.settings);
+				Intent intent = new Intent(this, Settings.class);
+				startActivity(intent);
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+	}
+
+
 
 	@Override
 	public void onResume() {
