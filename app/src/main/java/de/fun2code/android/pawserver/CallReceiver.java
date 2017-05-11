@@ -1,39 +1,25 @@
 package de.fun2code.android.pawserver;
 
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.telephony.gsm.SmsMessage;
 import android.util.Log;
 import android.telephony.TelephonyManager;
-import com.github.kevinsawicki.http.HttpRequest;
-import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.ParseException;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
+import de.fun2code.android.pawserver.PawServerActivity;
 
 
 public class CallReceiver extends BroadcastReceiver {
+    //final static String TAG = PawServerActivity.TAG;
     private static boolean incomingCall = false;
     public String Number;
     @Override

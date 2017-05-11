@@ -11,7 +11,7 @@
             android:id="@+id/tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Напишите текст: "
+            android:text="Ввод :"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText

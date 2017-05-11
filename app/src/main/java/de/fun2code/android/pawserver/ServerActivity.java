@@ -3,47 +3,28 @@ package de.fun2code.android.pawserver;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-
-import android.content.SharedPreferences;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.content.Intent;
 import android.os.Bundle;
-//import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import de.fun2code.android.pawserver.listener.ServiceListener;
 import de.fun2code.android.pawserver.util.Utils;
-import de.fun2code.android.pawserver.PawServerService;
-
-
-/**
- * Sample "Build your own PAW server" Activity.
- * 
- *
- */
-
 
 public class ServerActivity extends PawServerActivity implements ServiceListener {
 	@SuppressWarnings("unused")
 	private Handler handler;
-	
-	// View that displays the server URL
 	private TextView viewUrl;
 	private TextView viewtvOut;
 	private ToggleButton toogleButton;
 
-	/** Called when the activity is first created. */
 	@Override
-
-
-
 	public void onCreate(Bundle savedInstanceState) {
-
-		TAG = "iobroker.paw";
+        TAG = "ioBroker.paw";
 		INSTALL_DIR = android.os.Environment.getExternalStorageDirectory().getAbsolutePath()+ "/www";
 		String onfig = INSTALL_DIR + "/conf/ser.xml";
 		Log.i(TAG, "INSTALL_DIR "+INSTALL_DIR);
@@ -52,8 +33,6 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
 		setContentView(R.layout.main);
 		handler = new Handler();
 		viewUrl = (TextView) findViewById(R.id.url);
-        //viewtvOut = (TextView) findViewById(R.id.tvOut);
-
 
 		ToggleButton toggle = (ToggleButton) findViewById(R.id.toggleButton);
 		toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -69,27 +48,11 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
 			}
 		});
 
-		/* Check installation and extract ZIP if necessary */
 		checkInstallation();
-
-        //viewtvOut.setText("Server running on: ");
-		/*
-		 * Register handler This is needed in order to get dialogs etc. to work.
-		 */
 		messageHandler = new MessageHandler(this);
 		ServerService.setActivityHandler(messageHandler);
-
-		/*
-		 * Register activity with service.
-		 */
 		ServerService.setActivity(this);
-
-
-
-
-
 	}
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -98,19 +61,13 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
 
 	}
 
-
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// получим идентификатор выбранного пункта меню
+
 		int id = item.getItemId();
-
-		TextView TextView = (TextView) findViewById(R.id.url);
-
-		// Операции для выбранного пункта меню
+		//TextView TextView = (TextView) findViewById(R.id.url);
 		switch (id) {
 			case R.id.action_settings:
-				//Log.i(TAG, "Settings Start");
-				//setContentView(R.layout.settings);
 				Intent intent = new Intent(this, Settings.class);
 				startActivity(intent);
 				return true;
@@ -119,22 +76,9 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
 		}
 	}
 
-
-
 	@Override
 	public void onResume() {
 		super.onResume();
-		/*
-		 *  Registers the listener that calls onServiceStart() and
-		 *  onServiceStop().
-		 */
-		//PawServerService service = ServerService.getService();
-		//viewUrl = (TextView) findViewById(R.id.url);
-
-		//viewtvOut.setText(url);
-
-
-
 		ServerService.registerServiceListener(this);
 		startService();
 	}
@@ -143,17 +87,11 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
 	public void onDestroy() {
 		super.onDestroy();
 		//stopService();
-		
-		/*
-		 * Unregisters the listener
-		 */
+
 		ServerService.unregisterServiceListener(this);
 
 	}
 
-	/**
-	 * Stops the service
-	 */
 	@Override
 	public void stopService() {
 		Intent serviceIntent = new Intent(this.getApplicationContext(),
@@ -161,21 +99,15 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
 		stopService(serviceIntent);
 	}
 
-	/**
-	 * Starts the service
-	 */
+
 	@Override
 	public void startService() {
-		/*
-		 * Do nothing, if service is already running.
-		 */
 		if (ServerService.isRunning()) {
 			return;
 		}
 
 		Intent serviceIntent = new Intent(ServerActivity.this,
-				ServerService.class);
-
+		ServerService.class);
 		startService(serviceIntent);
 	}
 
@@ -201,7 +133,7 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
 					viewUrl.setText(url);
 				}
 			});
-			
+
 		}
 		else {
 			runOnUiThread(new Runnable() {

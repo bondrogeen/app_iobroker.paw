@@ -20,6 +20,7 @@ public class Settings extends PawServerActivity {
     TextView dev_name;
     TextView namespace;
 
+
     JSONObject jsonVar = new JSONObject();
 
     @Override
@@ -39,7 +40,6 @@ public class Settings extends PawServerActivity {
         port = (TextView) findViewById(R.id.port);
         dev_name = (TextView) findViewById(R.id.dev_name);
         namespace = (TextView) findViewById(R.id.namespace);
-
         server.setOnClickListener(onClickListener);
         port.setOnClickListener(onClickListener);
         dev_name.setOnClickListener(onClickListener);
@@ -107,6 +107,8 @@ public class Settings extends PawServerActivity {
     private final View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+
+            //tv.setText("Server");
             switch (v.getId()){
                 case R.id.server:
                     Set_id(1);
@@ -132,14 +134,33 @@ public class Settings extends PawServerActivity {
         AlertDialog.Builder mDialogBuilder = new AlertDialog.Builder(context);
         mDialogBuilder.setView(promptsView);
         final EditText userInput = (EditText) promptsView.findViewById(R.id.input_text);
+        final TextView tv = (TextView) promptsView.findViewById(R.id.tv);
+        switch (id_alert){
+            case 1:
+                tv.setText(R.string.server);
+                userInput.setText(server.getText());
+                break;
+            case 2:
+                tv.setText(R.string.port);
+                userInput.setText(port.getText());
+                break;
+            case 3:
+                tv.setText(R.string.dev_name);
+                userInput.setText(dev_name.getText());
+                break;
+            case 4:
+                tv.setText(R.string.namespace);
+                userInput.setText(namespace.getText());
+                break;
+        }
+
+
+
         mDialogBuilder
                 .setCancelable(false)
                 .setPositiveButton("OK",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
-                                //Вводим текст и отображаем в строке ввода на основном экране:
-                                //final_text.setText(userInput.getText());
-                                //server.setText(userInput.getText());
                                 if(id_alert == 1){
                                     server.setText(userInput.getText());
                                 }else if(id_alert == 2){

@@ -4,11 +4,8 @@
     <string name="app_name">ioBroker.paw</string>
     <string name="tvOut">BuildOwnPawServer</string>
     <string name="action_settings">Settings</string>
-    <string name="action_cat_male">Кот</string>
-    <string name="action_cat_female">Кошка</string>
-    <string name="action_kitten">Котёнок</string>
-    <string name="this_is_activity_two">This is Activity Two</string>
-    <string name="ip">server ip</string>
-
-
+    <string name="server">IP-адрес сервера</string>
+    <string name="port">Порт сервера:</string>
+    <string name="dev_name">Имя устройства</string>
+    <string name="namespace">Имя драйвера</string>
 </resources>
