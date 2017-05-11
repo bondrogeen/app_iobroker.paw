@@ -1,6 +1,5 @@
 package de.fun2code.android.pawserver;
 
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,11 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.ToggleButton;
-import de.fun2code.android.pawserver.*;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.*;
 
 public class Settings extends PawServerActivity {
@@ -23,7 +19,7 @@ public class Settings extends PawServerActivity {
     TextView port;
     TextView dev_name;
     TextView namespace;
-    private TextView final_text;
+
     JSONObject jsonVar = new JSONObject();
 
     @Override
@@ -39,7 +35,6 @@ public class Settings extends PawServerActivity {
             e.printStackTrace();
         }
 
-
         server = (TextView) findViewById(R.id.server);
         port = (TextView) findViewById(R.id.port);
         dev_name = (TextView) findViewById(R.id.dev_name);
@@ -49,27 +44,23 @@ public class Settings extends PawServerActivity {
         port.setOnClickListener(onClickListener);
         dev_name.setOnClickListener(onClickListener);
         namespace.setOnClickListener(onClickListener);
-        //TAG = "iobroker.paw";
+
         Log.i(TAG, "Start SETTINGS "+INSTALL_DIR);
         readFile();
-        //writeFile();
     }
 
     void readFile() {
-
         String sdPath = INSTALL_DIR + "/html/";
         File sdFile = new File(sdPath, "setting.json");
         Log.i(TAG, sdFile.toString());
         if(sdFile.exists()) {
-
             try {
                 BufferedReader br = new BufferedReader(new FileReader(sdFile));
                 String str = "";
                 while ((str = br.readLine()) != null) {
-                    Log.i(TAG, str);
+                    //Log.i(TAG, str);
                     jsonVar = new JSONObject(str);
                 }
-
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -77,8 +68,6 @@ public class Settings extends PawServerActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-
             try {
                 server.setText(jsonVar.get("server").toString());
                 port.setText(jsonVar.get("port").toString());
@@ -87,7 +76,6 @@ public class Settings extends PawServerActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         }else{
             server.setText("");
             port.setText("");
@@ -97,7 +85,6 @@ public class Settings extends PawServerActivity {
     }
 
     void writeFile() {
-
         String sdPath = INSTALL_DIR + "/html/";
         File sdFile = new File(sdPath, "setting.json");
         if(!sdFile.exists()){
@@ -120,7 +107,6 @@ public class Settings extends PawServerActivity {
     private final View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
             switch (v.getId()){
                 case R.id.server:
                     Set_id(1);
@@ -134,9 +120,7 @@ public class Settings extends PawServerActivity {
                 case R.id.namespace:
                     Set_id(4);
                     break;
-
             }
-
         }
     };
 
@@ -179,12 +163,9 @@ public class Settings extends PawServerActivity {
         alertDialog.show();
     }
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        String textFromTV = server.getText().toString();
-
         try {
             jsonVar.put("server", server.getText().toString());
             jsonVar.put("port", port.getText().toString());
