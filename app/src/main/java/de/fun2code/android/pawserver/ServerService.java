@@ -10,7 +10,6 @@ public class ServerService extends PawServerService {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-
 		/*
 		 * Individual settings.
 		 */
@@ -35,9 +34,6 @@ public class ServerService extends PawServerService {
 	 * activityClass = Activity class name.
 	 * notificationDrawableId = ID of the notification icon to display.
 	 */
-
-
-
 	private void init() {
 		TAG = getString(R.string.app_name);
 		startedOnBoot = false;

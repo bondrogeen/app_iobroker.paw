@@ -109,7 +109,6 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
 		// Операции для выбранного пункта меню
 		switch (id) {
 			case R.id.action_settings:
-
 				//Log.i(TAG, "Settings Start");
 				//setContentView(R.layout.settings);
 				Intent intent = new Intent(this, Settings.class);

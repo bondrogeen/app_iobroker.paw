@@ -23,4 +23,5 @@ dependencies {
     compile files('D:\\android_studio\\BuildOwnPawServer\\libs\\commons-codec.jar')
     compile files('D:\\android_studio\\BuildOwnPawServer\\libs\\jdom-android.jar')
     compile files('D:\\android_studio\\BuildOwnPawServer\\libs\\paw-server.jar')
+
 }
