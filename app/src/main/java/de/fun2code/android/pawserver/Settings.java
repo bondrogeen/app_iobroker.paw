@@ -3,6 +3,7 @@ package de.fun2code.android.pawserver;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import de.fun2code.android.pawserver.*;
@@ -12,21 +13,29 @@ import java.io.*;
 
 public class Settings extends PawServerActivity {
 
-    private TextView ;
-    private TextView viewtvOut;
-    private ToggleButton toogleButton;
-
-    //final String  INSTALL_DIR = android.os.Environment.getExternalStorageDirectory().getAbsolutePath()+ "/www";
-    //String onfig = INSTALL_DIR + "/html/setting_test.json";
+    TextView server;
+    TextView port;
+    TextView dev_name;
+    TextView namespace;
 
     @Override
     public  void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
+
+        server = (TextView) findViewById(R.id.server);
+        port = (TextView) findViewById(R.id.port);
+        dev_name = (TextView) findViewById(R.id.dev_name);
+        namespace = (TextView) findViewById(R.id.namespace);
+
+        server.setOnClickListener(onClickListener);
+        port.setOnClickListener(onClickListener);
+        dev_name.setOnClickListener(onClickListener);
+        namespace.setOnClickListener(onClickListener);
         //TAG = "iobroker.paw";
         Log.i(TAG, "Start SETTINGS "+INSTALL_DIR);
-        readFile();
-        writeFile();
+        //readFile();
+        //writeFile();
     }
 
     void readFile() {
@@ -61,5 +70,30 @@ public class Settings extends PawServerActivity {
             e.printStackTrace();
         }
     }
+
+    private final View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.server:
+                    server.setText("123");
+                    break;
+                case R.id.port:
+                    port.setText("123");
+                    break;
+                case R.id.dev_name:
+                    dev_name.setText("123");
+                    break;
+                case R.id.namespace:
+                    namespace.setText("123");
+                    break;
+
+            }
+
+        }
+    };
+
+
+
 
 }
