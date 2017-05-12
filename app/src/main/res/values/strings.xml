@@ -2,7 +2,6 @@
 
 <resources>
     <string name="app_name">ioBroker.paw</string>
-    <string name="tvOut">BuildOwnPawServer</string>
     <string name="action_settings">Настройки</string>
     <string name="server">IP-адрес сервера</string>
     <string name="port">Порт сервера:</string>
@@ -13,4 +12,6 @@
     <string name="device_name">Имя уст.</string>
     <string name="nam_espace">Имя драйвера</string>
     <string name="server_settings">Сервер</string>
+    <string name="exit">Выход</string>
+    <string name="save_setting">Сохранить настройки ?</string>
 </resources>

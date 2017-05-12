@@ -1,6 +1,7 @@
 package de.fun2code.android.pawserver;
 
 import android.app.AlertDialog;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -27,14 +28,7 @@ public class Settings extends PawServerActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
-        try {
-            jsonVar.put("server", "192.168.1.31");
-            jsonVar.put("port", "8898");
-            jsonVar.put("dev_name", "dev1");
-            jsonVar.put("namespace", "paw.0");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+
 
         server = (TextView) findViewById(R.id.server);
         port = (TextView) findViewById(R.id.port);
@@ -71,7 +65,7 @@ public class Settings extends PawServerActivity {
             try {
                 server.setText(jsonVar.get("server").toString());
                 port.setText(jsonVar.get("port").toString());
-                dev_name.setText(jsonVar.get("dev_name").toString());
+                dev_name.setText(jsonVar.get("device").toString());
                 namespace.setText(jsonVar.get("namespace").toString());
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -187,18 +181,37 @@ public class Settings extends PawServerActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        try {
-            jsonVar.put("server", server.getText().toString());
-            jsonVar.put("port", port.getText().toString());
-            jsonVar.put("dev_name", dev_name.getText().toString());
-            jsonVar.put("namespace", namespace.getText().toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        writeFile();
+
     }
 
 
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.exit)
+                .setMessage(R.string.save_setting)
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        finish();
+
+                    }
+                })
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        try {
+                            jsonVar.put("server", server.getText().toString());
+                            jsonVar.put("port", port.getText().toString());
+                            jsonVar.put("device", dev_name.getText().toString());
+                            jsonVar.put("namespace", namespace.getText().toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        writeFile();
+                        finish();
+                    }
+                }).create().show();
+    }
 
 
 }
