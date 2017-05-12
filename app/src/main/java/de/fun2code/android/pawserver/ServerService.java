@@ -36,7 +36,7 @@ public class ServerService extends PawServerService {
 	 */
 	private void init() {
 		TAG = getString(R.string.app_name);
-		startedOnBoot = false;
+		startedOnBoot = true;
 		isRuntime = false;
 		serverConfig = ServerActivity.INSTALL_DIR + "/conf/server.xml";
 		pawHome = ServerActivity.INSTALL_DIR + "/";
@@ -45,7 +45,7 @@ public class ServerService extends PawServerService {
 		execAutostartScripts = false;
 		showUrlInNotification = false;
 		notificationTitle = "Start iobroker.paw";
-		notificationMessage = "Message";
+		notificationMessage = "Start server";
 		appName = getString(R.string.app_name);
 		activityClass = "de.fun2code.android.pawserver.ServerActivity";
 		notificationDrawableId = R.drawable.ic_launcher;

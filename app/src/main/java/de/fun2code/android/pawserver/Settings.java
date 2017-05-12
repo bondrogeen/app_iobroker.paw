@@ -152,7 +152,7 @@ public class Settings extends PawServerActivity {
 
         mDialogBuilder
                 .setCancelable(false)
-                .setPositiveButton("OK",
+                .setPositiveButton(android.R.string.ok,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
                                 if(id_alert == 1){
@@ -167,7 +167,7 @@ public class Settings extends PawServerActivity {
 
                             }
                         })
-                .setNegativeButton("Отмена",
+                .setNegativeButton(android.R.string.cancel,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
                                 String alert = "";

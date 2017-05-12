@@ -19,7 +19,7 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
 	@SuppressWarnings("unused")
 	private Handler handler;
 	private TextView viewUrl;
-	private TextView viewtvOut;
+	private TextView viewhead;
 	private ToggleButton toogleButton;
 
 	@Override
@@ -33,7 +33,8 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
 		setContentView(R.layout.main);
 		handler = new Handler();
 		viewUrl = (TextView) findViewById(R.id.url);
-
+		//viewhead = (TextView) findViewById(R.id.head);
+		//viewhead.setText("");
 		ToggleButton toggle = (ToggleButton) findViewById(R.id.toggleButton);
 		toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
