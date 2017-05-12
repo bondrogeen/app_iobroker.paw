@@ -4,10 +4,15 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context=".ServerActivity">
     <item
+            android:id="@+id/action_settings_server"
+            android:orderInCategory="2"
+            android:title="@string/server_settings"
+
+    />
+    <item
             android:id="@+id/action_settings"
-            android:orderInCategory="100"
+            android:orderInCategory="1"
             android:title="@string/action_settings"
 
     />
-
 </menu>

@@ -67,10 +67,15 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
 		int id = item.getItemId();
 		//TextView TextView = (TextView) findViewById(R.id.url);
 		switch (id) {
-			case R.id.action_settings:
+			case R.id.action_settings_server:
 				Intent intent = new Intent(this, Settings.class);
 				startActivity(intent);
 				return true;
+
+            case R.id.action_settings:
+                Intent i = new Intent(this, Device.class);
+                startActivity(i);
+                return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}

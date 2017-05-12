@@ -50,30 +50,18 @@ public class CallReceiver extends BroadcastReceiver {
 
 
     class RequestTask extends AsyncTask<String, String, String> {
-
-
         @Override
-
         protected String doInBackground(String... params) {
-            String TAG = "iobroker.paw";
-
+            String TAG = "ioBroker.paw";
                 Log.i(TAG, " "+params.length );
-
             try {
-                //создаем запрос на сервер
                 DefaultHttpClient hc = new DefaultHttpClient();
                 ResponseHandler<String> res = new BasicResponseHandler();
-                //он у нас будет посылать post запрос
                 HttpPost postMethod = new HttpPost(params[0]);
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-                //передаем параметры из наших текстбоксов
-                //лоигн
                 nameValuePairs.add(new BasicNameValuePair("call", params[1]));
-                //пароль
                 nameValuePairs.add(new BasicNameValuePair("number",params[2]));
-                //собераем их вместе и посылаем на сервер
                 postMethod.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-                //получаем ответ от сервера
                 String response = hc.execute(postMethod, res);
                 } catch (Exception e) {
                 Log.i(TAG, "err "+e);
@@ -84,14 +72,10 @@ public class CallReceiver extends BroadcastReceiver {
 
         @Override
         protected void onPostExecute(String result) {
-
-
         }
 
         @Override
         protected void onPreExecute() {
-
-
         }
     }
 

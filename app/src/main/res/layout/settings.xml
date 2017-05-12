@@ -8,7 +8,7 @@
             android:orientation="vertical"
             android:layout_height="wrap_content" android:layout_width="150dp">
         <TextView
-                android:text="Server IP"
+                android:text="@string/server_ip"
                 android:layout_width="match_parent"
                 android:layout_height="50dp" android:id="@+id/text_server"
                 android:layout_marginBottom="20dp" android:gravity="left|center" android:textSize="18sp"
@@ -18,15 +18,15 @@
                 android:layout_height="50dp" android:id="@+id/text_port_server"
                 android:layout_marginBottom="20dp" android:gravity="left|center" android:textSize="18sp"
                 android:padding="10dp"
-                android:text="Server Port"/>
+                android:text="@string/server_port"/>
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="50dp" android:id="@+id/text_dev_mane"
                 android:layout_marginBottom="20dp" android:gravity="left|center" android:textSize="18sp"
                 android:padding="10dp"
-                android:text="Device name"/>
+                android:text="@string/device_name"/>
         <TextView
-                android:text="Namespace"
+                android:text="@string/nam_espace"
                 android:layout_width="match_parent"
                 android:layout_height="50dp" android:id="@+id/text_dev_namespace"
                 android:layout_marginBottom="20dp" android:gravity="left|center" android:textSize="18sp"
@@ -34,8 +34,36 @@
     </LinearLayout>
     <LinearLayout
             android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+        <TextView
+                android:text=":"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" android:id="@+id/textView5" android:layout_marginBottom="20dp"
+                android:padding="10dp" android:gravity="center" android:textSize="18sp"
+                android:textStyle="bold"/>
+        <TextView
+                android:text=":"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" android:id="@+id/textView3" android:layout_marginBottom="20dp"
+                android:gravity="center" android:textSize="18sp" android:textStyle="bold"/>
+        <TextView
+                android:text=":"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" android:id="@+id/textView2" android:layout_marginBottom="20dp"
+                android:padding="10dp" android:gravity="center" android:textSize="18sp"
+                android:textStyle="bold"/>
+        <TextView
+                android:text=":"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" android:id="@+id/textView" android:layout_marginBottom="20dp"
+                android:padding="10dp" android:gravity="center" android:textSize="18sp"
+                android:textStyle="bold"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="vertical"
             android:layout_height="wrap_content" android:focusable="false" android:layout_margin="0dp"
-            android:layout_width="150dp">
+            android:layout_width="match_parent">
         <TextView
                 android:layout_width="match_parent"
                 android:id="@+id/server" android:layout_marginBottom="20dp" android:layout_height="50dp"

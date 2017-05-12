@@ -95,6 +95,8 @@
 
         <activity android:name=".Settings">
         </activity>
+        <activity android:name=".Device">
+        </activity>
     </application>
 
 </manifest>
