@@ -5,18 +5,33 @@
               android:layout_height="match_parent" android:weightSum="1">
 
     <Switch
-            android:text="Автостарт"
+            android:text="@string/startedOnBoot"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/switch3" android:layout_marginTop="10dp"
-            android:padding="10dp" android:textStyle="bold" android:textSize="18sp"/>
+            android:layout_height="wrap_content" android:id="@+id/switch1"
+            android:textStyle="bold" android:textSize="18sp" android:padding="10dp" android:layout_marginTop="10dp"/>
     <Switch
-            android:text="Send call"
+            android:text="@string/WakeLock"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/switch2" android:layout_marginTop="10dp"
-            android:padding="10dp" android:textStyle="bold" android:textSize="18sp"/>
+            android:layout_height="wrap_content" android:id="@+id/switch2"
+            android:textStyle="bold" android:textSize="18sp" android:padding="10dp" android:layout_marginTop="10dp"/>
     <Switch
-            android:text="Send sms"
+            android:text="@string/restartIpChanged"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/switch1" android:layout_marginTop="10dp"
-            android:padding="10dp" android:textStyle="bold" android:textSize="18sp"/>
+            android:layout_height="wrap_content" android:id="@+id/switch3"
+            android:textStyle="bold" android:textSize="18sp" android:padding="10dp" android:layout_marginTop="10dp"/>
+    <Switch
+            android:text="@string/execAutostartScripts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/switch4"
+            android:textStyle="bold" android:textSize="18sp" android:padding="10dp" android:layout_marginTop="10dp"/>
+    <Switch
+            android:text="@string/showUrlInNotification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/switch5"
+            android:textStyle="bold" android:textSize="18sp" android:padding="10dp" android:layout_marginTop="10dp"/>
+    <Switch
+            android:text="@string/hideNotificationIcon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/switch6"
+            android:textStyle="bold" android:textSize="18sp" android:padding="10dp" android:layout_marginTop="10dp"/>
 </LinearLayout>

@@ -14,4 +14,10 @@
     <string name="server_settings">Сервер</string>
     <string name="exit">Выход</string>
     <string name="save_setting">Сохранить настройки ?</string>
+    <string name="startedOnBoot">Автостарт</string>
+    <string name="WakeLock">Всегда включен.</string>
+    <string name="restartIpChanged">Рестарт при изм. IP</string>
+    <string name="execAutostartScripts">Автостарт скриптов</string>
+    <string name="showUrlInNotification">showUrlInNotification</string>
+    <string name="hideNotificationIcon">hideNotificationIcon</string>
 </resources>

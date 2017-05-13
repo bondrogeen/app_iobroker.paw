@@ -16,12 +16,12 @@ public class ServerService extends PawServerService {
 
 		TAG = getString(R.string.app_name);
 		SharedPreferences preferences = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
-		hideNotificationIcon = preferences.getBoolean("HideNotificationIcon", false);
-		execAutostartScripts = preferences.getBoolean("ExecAutostartScripts", false);
-		useWakeLock = preferences.getBoolean("UseWakeLock", true);
-		showUrlInNotification = preferences.getBoolean("ShowUrlInNotification", false);
+		hideNotificationIcon = preferences.getBoolean("hideNotificationIcon", false);
+		execAutostartScripts = preferences.getBoolean("execAutostartScripts", false);
+		useWakeLock = preferences.getBoolean("useWakeLock", true);
+		showUrlInNotification = preferences.getBoolean("showUrlInNotification", false);
 		//pawHome = preferences.getString("PawHome", pawHome);
-		restartIpChanged = preferences.getBoolean("RestartIpChanged", true);
+		restartIpChanged = preferences.getBoolean("restartIpChanged", true);
 		startedOnBoot = preferences.getBoolean("startedOnBoot", true);
 		isRuntime = preferences.getBoolean("isRuntime", false);
 		Log.i(TAG, "isRuntime "+isRuntime);
