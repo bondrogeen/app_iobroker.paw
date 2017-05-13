@@ -22,28 +22,33 @@ public class CallReceiver extends BroadcastReceiver {
     //final static String TAG = PawServerActivity.TAG;
     private static boolean incomingCall = false;
     public String Number;
+    final String TAG = "ioBroker.paw";
+    private static String phoneNumber;
+
+
+
     @Override
     public void onReceive(Context context, Intent intent) {
-        String TAG = "iobroker.paw";
+
         if (intent.getAction().equals("android.intent.action.PHONE_STATE")) {
             String phoneState = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
             Log.i(TAG, "действие "+phoneState);
             if (phoneState.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
                 //Трубка не поднята, телефон звонит
-                String phoneNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
-                Number = phoneNumber;
+                phoneNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
+
                 incomingCall = true;
                 new RequestTask().execute("http://192.168.1.31:8898","incoming",phoneNumber);
                 Log.i(TAG, "звонок"+ phoneNumber);
             } else if (phoneState.equals(TelephonyManager.EXTRA_STATE_OFFHOOK)) {
                 //Телефон находится в режиме звонка (набор номера при исходящем звонке / разговор)
-                new RequestTask().execute("http://192.168.1.31:8898","connection",Number);
-                Log.i(TAG, "разговор");
+                new RequestTask().execute("http://192.168.1.31:8898","connection",phoneNumber);
+                Log.i(TAG, "разговор"+ phoneNumber);
             } else if (phoneState.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
                 //Телефон находится в ждущем режиме - это событие наступает по окончанию разговора
                 //или в ситуации "отказался поднимать трубку и сбросил звонок".
-                new RequestTask().execute("http://192.168.1.31:8898","disconnection",Number);
-                Log.i(TAG, "сбросил звонок");
+                new RequestTask().execute("http://192.168.1.31:8898","disconnection",phoneNumber);
+                Log.i(TAG, "сбросил звонок"+ phoneNumber);
             }
         }
     }
@@ -52,7 +57,7 @@ public class CallReceiver extends BroadcastReceiver {
     class RequestTask extends AsyncTask<String, String, String> {
         @Override
         protected String doInBackground(String... params) {
-            String TAG = "ioBroker.paw";
+
                 Log.i(TAG, " "+params.length );
             try {
                 DefaultHttpClient hc = new DefaultHttpClient();
@@ -72,10 +77,12 @@ public class CallReceiver extends BroadcastReceiver {
 
         @Override
         protected void onPostExecute(String result) {
+            Log.i(TAG, "onPostExecute "+result);
         }
 
         @Override
         protected void onPreExecute() {
+            Log.i(TAG, "onPreExecute ");
         }
     }
 
