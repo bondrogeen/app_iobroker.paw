@@ -2,10 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent" android:weightSum="1">
 
-    <TextView
-            android:text="TextView"
+    <Switch
+            android:text="Автостарт"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/textView4"/>
+            android:layout_height="wrap_content" android:id="@+id/switch3" android:layout_marginTop="10dp"
+            android:padding="10dp" android:textStyle="bold" android:textSize="18sp"/>
+    <Switch
+            android:text="Send call"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/switch2" android:layout_marginTop="10dp"
+            android:padding="10dp" android:textStyle="bold" android:textSize="18sp"/>
+    <Switch
+            android:text="Send sms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/switch1" android:layout_marginTop="10dp"
+            android:padding="10dp" android:textStyle="bold" android:textSize="18sp"/>
 </LinearLayout>

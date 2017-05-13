@@ -3,7 +3,7 @@ android {
     compileSdkVersion 15
     buildToolsVersion '25.0.0'
     defaultConfig {
-        applicationId "de.fun2code.android.buildownpawserver"
+        applicationId 'com.github.bondrogeen.app_iobroker.paw'
         minSdkVersion 15
         targetSdkVersion 17
     }
@@ -23,5 +23,4 @@ dependencies {
     compile files('D:\\android_studio\\BuildOwnPawServer\\libs\\commons-codec.jar')
     compile files('D:\\android_studio\\BuildOwnPawServer\\libs\\jdom-android.jar')
     compile files('D:\\android_studio\\BuildOwnPawServer\\libs\\paw-server.jar')
-
 }
