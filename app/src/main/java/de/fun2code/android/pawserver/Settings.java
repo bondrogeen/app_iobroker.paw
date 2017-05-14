@@ -4,15 +4,27 @@ import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Settings extends PawServerActivity {
     final Context context = this;
@@ -20,7 +32,11 @@ public class Settings extends PawServerActivity {
     TextView port;
     TextView dev_name;
     TextView namespace;
-
+    TextView resultTest;
+    Button testButton;
+    private String url;
+    private String postServer;
+    private String postPort;
 
     JSONObject jsonVar = new JSONObject();
 
@@ -34,10 +50,14 @@ public class Settings extends PawServerActivity {
         port = (TextView) findViewById(R.id.port);
         dev_name = (TextView) findViewById(R.id.dev_name);
         namespace = (TextView) findViewById(R.id.namespace);
+        resultTest = (TextView) findViewById(R.id.resultTest);
+        testButton = (Button) findViewById(R.id.testButton);
+
         server.setOnClickListener(onClickListener);
         port.setOnClickListener(onClickListener);
         dev_name.setOnClickListener(onClickListener);
         namespace.setOnClickListener(onClickListener);
+        testButton.setOnClickListener(onClickListener);
 
         Log.i(TAG, "Start SETTINGS "+INSTALL_DIR);
         readFile();
@@ -67,6 +87,9 @@ public class Settings extends PawServerActivity {
                 port.setText(jsonVar.get("port").toString());
                 dev_name.setText(jsonVar.get("device").toString());
                 namespace.setText(jsonVar.get("namespace").toString());
+                postServer = jsonVar.get("server").toString();
+                postPort = jsonVar.get("port").toString();
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -76,6 +99,9 @@ public class Settings extends PawServerActivity {
             dev_name.setText("");
             namespace.setText("");
         }
+
+        url = "http://"+postServer+":"+postPort;
+
     }
 
     void writeFile() {
@@ -116,6 +142,11 @@ public class Settings extends PawServerActivity {
                 case R.id.namespace:
                     Set_id(4);
                     break;
+                case R.id.testButton:
+                    resultTest.setText("");
+                    new Settings.TestSetToServer().execute();
+                    //Set_id(4);
+                    break;
             }
         }
     };
@@ -148,8 +179,6 @@ public class Settings extends PawServerActivity {
                 break;
         }
 
-
-
         mDialogBuilder
                 .setCancelable(false)
                 .setPositiveButton(android.R.string.ok,
@@ -157,16 +186,19 @@ public class Settings extends PawServerActivity {
                             public void onClick(DialogInterface dialog,int id) {
                                 if(id_alert == 1){
                                     server.setText(userInput.getText());
+                                    postServer = userInput.getText().toString();
                                 }else if(id_alert == 2){
                                     port.setText(userInput.getText());
+                                    postPort = userInput.getText().toString();
                                 }else if(id_alert == 3){
                                     dev_name.setText(userInput.getText());
                                 }else if(id_alert == 4){
                                     namespace.setText(userInput.getText());
                                 }
-
+                                url = "http://"+postServer+":"+postPort;
                             }
                         })
+
                 .setNegativeButton(android.R.string.cancel,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
@@ -208,10 +240,56 @@ public class Settings extends PawServerActivity {
                             e.printStackTrace();
                         }
                         writeFile();
+
                         finish();
                     }
                 }).create().show();
     }
+
+
+    class TestSetToServer extends AsyncTask<String, String, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            String response = null;
+            try {
+                DefaultHttpClient hc = new DefaultHttpClient();
+                ResponseHandler<String> res = new BasicResponseHandler();
+                HttpPost postMethod = new HttpPost(url);
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+                //nameValuePairs.add(new BasicNameValuePair("typeCall", typeCall));
+                //nameValuePairs.add(new BasicNameValuePair("phoneNumber", phoneNumber));
+                //nameValuePairs.add(new BasicNameValuePair("statusCall", statusCall));
+                postMethod.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+                response = hc.execute(postMethod, res);
+            } catch (Exception e) {
+                //Log.i(TAG, "err " + e);
+                return String.valueOf(e);
+
+            }
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            //Log.i(TAG, "RequestTask "+result);
+            if(result.equals("post received")){
+                Log.i(TAG, "RequestTask "+result);
+                resultTest.setTextColor(Color.GREEN);
+                resultTest.setText("Connection");
+
+            }else {
+                resultTest.setTextColor(Color.RED);
+                resultTest.setText("No connection");
+                Log.i(TAG, "RequestTask "+result);
+            }
+        }
+
+        @Override
+        protected void onPreExecute() { Log.i(TAG, "RequestTask ");
+
+        }
+    }
+
 
 
 }

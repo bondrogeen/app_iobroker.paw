@@ -31,6 +31,10 @@
                 android:layout_height="50dp" android:id="@+id/text_dev_namespace"
                 android:layout_marginBottom="20dp" android:gravity="left|center" android:textSize="18sp"
                 android:padding="10dp"/>
+        <Button
+                android:text="Тест"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/testButton"/>
     </LinearLayout>
     <LinearLayout
             android:orientation="vertical"
@@ -79,6 +83,10 @@
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="50dp" android:id="@+id/namespace" android:layout_marginBottom="20dp"
+                android:textSize="18sp" android:gravity="left|center" android:padding="10dp"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp" android:id="@+id/resultTest" android:layout_marginBottom="20dp"
                 android:textSize="18sp" android:gravity="left|center" android:padding="10dp"/>
     </LinearLayout>
 </LinearLayout>
