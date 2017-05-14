@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <string name="app_name">ioBroker.paw</string>
-    <string name="action_settings">Настройки</string>
-    <string name="server">IP-адрес сервера</string>
-    <string name="port">Порт сервера:</string>
-    <string name="dev_name">Имя устройства</string>
-    <string name="namespace">Имя драйвера</string>
-    <string name="server_ip">ioBroker ip</string>
-    <string name="server_port">ioBroker port</string>
-    <string name="device_name">Имя уст.</string>
-    <string name="nam_espace">Имя драйвера</string>
-    <string name="server_settings">Сервер</string>
-    <string name="exit">Выход</string>
-    <string name="save_setting">Сохранить настройки ?</string>
-    <string name="startedOnBoot">Автостарт</string>
-    <string name="WakeLock">Всегда включен.</string>
-    <string name="restartIpChanged">Рестарт при изм. IP</string>
-    <string name="execAutostartScripts">Автостарт скриптов</string>
+    <string name="app_name" translatable="false">ioBroker.paw</string>
+    <string name="action_settings" translatable="false">Настройки</string>
+    <string name="server" translatable="false">IP-адрес сервера</string>
+    <string name="port" translatable="false">Порт сервера:</string>
+    <string name="dev_name" translatable="false">Имя устройства</string>
+    <string name="namespace" translatable="false">Имя драйвера</string>
+    <string name="server_ip" translatable="false">ioBroker ip</string>
+    <string name="server_port" translatable="false">ioBroker port</string>
+    <string name="device_name" translatable="false">Имя уст.</string>
+    <string name="nam_espace" translatable="false">Имя драйвера</string>
+    <string name="server_settings" translatable="false">Сервер</string>
+    <string name="exit" translatable="false">Выход</string>
+    <string name="save_setting" translatable="false">Сохранить настройки?</string>
+    <string name="startedOnBoot" translatable="false">Автостарт</string>
+    <string name="WakeLock" translatable="false">Всегда включен.</string>
+    <string name="restartIpChanged" translatable="false">Рестарт при изменение IP</string>
+    <string name="execAutostartScripts" translatable="false">Автостарт скриптов</string>
     <string name="showUrlInNotification">showUrlInNotification</string>
-    <string name="hideNotificationIcon">Скрыть уведомление</string>
-    <string name="Send_call">Отслеживание звонков</string>
+    <string name="hideNotificationIcon" translatable="false">Скрыть уведомление</string>
+    <string name="Send_call" translatable="false">Отслеживание звонков</string>
+    <string name="Test" translatable="false">Тест</string>
+    <string name="check" translatable="false">Проверка связи</string>
+    <string name="Connection" translatable="false">Connection</string>
+    <string name="No_connection" translatable="false">No connection</string>
 </resources>

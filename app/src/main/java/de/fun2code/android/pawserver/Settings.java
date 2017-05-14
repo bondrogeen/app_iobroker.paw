@@ -2,6 +2,7 @@ package de.fun2code.android.pawserver;
 
 import android.app.AlertDialog;
 import android.app.FragmentManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -37,6 +38,8 @@ public class Settings extends PawServerActivity {
     private String url;
     private String postServer;
     private String postPort;
+    private ProgressDialog mDialog;
+    private final int mTotalTime = 70;
 
     JSONObject jsonVar = new JSONObject();
 
@@ -144,6 +147,7 @@ public class Settings extends PawServerActivity {
                     break;
                 case R.id.testButton:
                     resultTest.setText("");
+                    progressBar();
                     new Settings.TestSetToServer().execute();
                     //Set_id(4);
                     break;
@@ -151,6 +155,15 @@ public class Settings extends PawServerActivity {
         }
     };
 
+
+    void progressBar(){
+        mDialog = new ProgressDialog(this);
+        mDialog.setMessage(getString(R.string.check));
+        mDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mDialog.setProgress(0);
+        mDialog.setMax(mTotalTime);
+        mDialog.show();
+    }
 
     void Set_id(final int id_alert) {
 
@@ -271,17 +284,19 @@ public class Settings extends PawServerActivity {
 
         @Override
         protected void onPostExecute(String result) {
+            mDialog.dismiss();
             //Log.i(TAG, "RequestTask "+result);
             if(result.equals("post received")){
                 Log.i(TAG, "RequestTask "+result);
                 resultTest.setTextColor(Color.GREEN);
-                resultTest.setText("Connection");
+                resultTest.setText(R.string.Connection);
 
             }else {
                 resultTest.setTextColor(Color.RED);
-                resultTest.setText("No connection");
+                resultTest.setText(R.string.No_connection);
                 Log.i(TAG, "RequestTask "+result);
             }
+
         }
 
         @Override
