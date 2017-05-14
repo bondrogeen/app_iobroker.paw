@@ -8,12 +8,11 @@
     <string name="action_settings" translatable="false">Настройки</string>
     <string name="check" translatable="false">Проверка связи</string>
     <string name="dev_name" translatable="false">Имя устройства</string>
-    <string name="device_name" translatable="false">Имя устройства</string>
+    <string name="device_name" translatable="false">Device name</string>
     <string name="execAutostartScripts" translatable="false">Автостарт скриптов</string>
     <string name="exit" translatable="false">Выход</string>
     <string name="hideNotificationIcon" translatable="false">Скрыть уведомление</string>
-    <string name="nam_espace" translatable="false">Имя драйвера</string>
-    <string name="namespace" translatable="false">Имя драйвера</string>
+    <string name="namespace" translatable="false">Adapter name</string>
     <string name="port" translatable="false">Порт сервера:</string>
     <string name="restartIpChanged" translatable="false">Рестарт при изменение IP</string>
     <string name="save_setting" translatable="false">Сохранить настройки?</string>

@@ -37,6 +37,7 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
 		handler = new Handler();
 		viewUrl = (TextView) findViewById(R.id.url);
 		viewhead = (TextView) findViewById(R.id.head);
+
 		ToggleButton toggle = (ToggleButton) findViewById(R.id.toggleButton);
 		toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -82,6 +83,11 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
                 Intent i = new Intent(this, Device.class);
                 startActivity(i);
                 return true;
+			case R.id.action_exit:
+				onServiceStart(false);
+				stopService();
+				this.finish();
+				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}

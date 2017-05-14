@@ -26,7 +26,7 @@
                 android:padding="10dp"
                 android:text="@string/device_name"/>
         <TextView
-                android:text="@string/nam_espace"
+                android:text="@string/namespace"
                 android:layout_width="match_parent"
                 android:layout_height="50dp" android:id="@+id/text_dev_namespace"
                 android:layout_marginBottom="20dp" android:gravity="left|center" android:textSize="18sp"

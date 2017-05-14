@@ -12,8 +12,7 @@
     <string name="save_setting" translatable="false">Save settings?</string>
     <string name="restartIpChanged" translatable="false">Restart when changing IP</string>
     <string name="port" translatable="false">Port</string>
-    <string name="namespace" translatable="false">namespace</string>
-    <string name="nam_espace" translatable="false">Name adapter</string>
+    <string name="namespace" translatable="false">Adapter name</string>
     <string name="hideNotificationIcon" translatable="false">Hide notification</string>
     <string name="exit" translatable="false">Exit</string>
     <string name="execAutostartScripts" translatable="false">Autostart scripts</string>

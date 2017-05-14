@@ -2,16 +2,15 @@
 <resources>
     <string name="app_name">ioBroker.paw</string>
     <string name="exit">Ausgang</string>
-    <string name="namespace">namespace</string>
+    <string name="namespace">Adapter name</string>
     <string name="server">Server IP address</string>
     <string name="server_ip">ioBroker IP</string>
     <string name="server_port">ioBroker port</string>
     <string name="action_settings">Einstellungen</string>
     <string name="WakeLock">WakeLock</string>
     <string name="dev_name">Gerätename</string>
-    <string name="device_name">Gerätename</string>
+    <string name="device_name">Device name</string>
     <string name="execAutostartScripts">Autostart-Skripten</string>
-    <string name="nam_espace">Name adapter</string>
     <string name="hideNotificationIcon">ausblenden Benachrichtigung</string>
     <string name="startedOnBoot">Autostart</string>
     <string name="server_settings">Server</string>
