@@ -69,11 +69,6 @@ public class CallReceiver extends BroadcastReceiver {
             } else if (phoneState.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
                 statusCall = "disconnection";
             }
-
-            Log.i(TAG, "server "+server);
-            Log.i(TAG, "port "+port);
-            Log.i(TAG, "dev_name "+dev_name);
-            Log.i(TAG, "namespace "+namespace);
         }
         Log.i(TAG, "statusCall : "+statusCall+", typeCall : "+typeCall+ ", phoneNumber : "+phoneNumber );
         if(start){
@@ -93,13 +88,13 @@ public class CallReceiver extends BroadcastReceiver {
                 ResponseHandler<String> res = new BasicResponseHandler();
                 HttpPost postMethod = new HttpPost(url);
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-                nameValuePairs.add(new BasicNameValuePair("server", server));
-                nameValuePairs.add(new BasicNameValuePair("port", port));
-                nameValuePairs.add(new BasicNameValuePair("dev_name", dev_name));
+                //nameValuePairs.add(new BasicNameValuePair("server", server));
+                nameValuePairs.add(new BasicNameValuePair("send", "call"));
+                nameValuePairs.add(new BasicNameValuePair("device", dev_name));
                 nameValuePairs.add(new BasicNameValuePair("namespace", namespace));
-                nameValuePairs.add(new BasicNameValuePair("typeCall", typeCall));
-                nameValuePairs.add(new BasicNameValuePair("phoneNumber", phoneNumber));
-                nameValuePairs.add(new BasicNameValuePair("statusCall", statusCall));
+                nameValuePairs.add(new BasicNameValuePair("type", typeCall));
+                nameValuePairs.add(new BasicNameValuePair("number", phoneNumber));
+                nameValuePairs.add(new BasicNameValuePair("status", statusCall));
                 postMethod.setEntity(new UrlEncodedFormEntity(nameValuePairs));
                 response = hc.execute(postMethod, res);
             } catch (Exception e) {
