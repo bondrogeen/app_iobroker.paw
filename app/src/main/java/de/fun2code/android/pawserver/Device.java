@@ -70,6 +70,8 @@ public class Device extends PawServerActivity implements CompoundButton.OnChecke
                 break;
             case R.id.switch5:
                 prefEdit.putBoolean("sendCall", isChecked);
+                CallReceiver cr = new CallReceiver();
+                cr.setStartBoolean(isChecked);
                 break;
             case R.id.switch6:
                 prefEdit.putBoolean("hideNotificationIcon", isChecked);

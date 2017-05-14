@@ -8,30 +8,30 @@
             android:text="@string/startedOnBoot"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/switch1"
-            android:textStyle="bold" android:textSize="18sp" android:padding="10dp" android:layout_marginTop="10dp"/>
-    <Switch
-            android:text="@string/WakeLock"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/switch2"
-            android:textStyle="bold" android:textSize="18sp" android:padding="10dp" android:layout_marginTop="10dp"/>
-    <Switch
-            android:text="@string/restartIpChanged"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/switch3"
-            android:textStyle="bold" android:textSize="18sp" android:padding="10dp" android:layout_marginTop="10dp"/>
-    <Switch
-            android:text="@string/execAutostartScripts"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/switch4"
-            android:textStyle="bold" android:textSize="18sp" android:padding="10dp" android:layout_marginTop="10dp"/>
+            android:textSize="18sp" android:padding="10dp" android:layout_marginTop="10dp"/>
     <Switch
             android:text="@string/Send_call"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/switch5"
-            android:textStyle="bold" android:textSize="18sp" android:padding="10dp" android:layout_marginTop="10dp"/>
+            android:textSize="18sp" android:padding="10dp" android:layout_marginTop="10dp"/>
     <Switch
             android:text="@string/hideNotificationIcon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/switch6"
-            android:textStyle="bold" android:textSize="18sp" android:padding="10dp" android:layout_marginTop="10dp"/>
+            android:textSize="18sp" android:padding="10dp" android:layout_marginTop="10dp"/>
+    <Switch
+            android:text="@string/WakeLock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/switch2"
+            android:textSize="18sp" android:padding="10dp" android:layout_marginTop="10dp"/>
+    <Switch
+            android:text="@string/restartIpChanged"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/switch3"
+            android:textSize="18sp" android:padding="10dp" android:layout_marginTop="10dp"/>
+    <Switch
+            android:text="@string/execAutostartScripts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/switch4"
+            android:textSize="18sp" android:padding="10dp" android:layout_marginTop="10dp"/>
 </LinearLayout>
