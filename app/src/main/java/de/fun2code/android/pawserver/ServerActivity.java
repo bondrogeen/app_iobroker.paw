@@ -62,7 +62,7 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
         messageHandler = new MessageHandler(this);
         ServerService.setActivityHandler(messageHandler);
         ServerService.setActivity(this);
-        checkServerSettings();
+
 
     }
 
@@ -195,11 +195,16 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
             try {
                 extractZip(getAssets().open("content.zip"),
                         INSTALL_DIR, keepFiles);
+                checkServerSettings();
             } catch (IOException e) {
                 Log.e(TAG, e.getMessage());
             }
 
+        }else{
+            checkServerSettings();
         }
+
+
     }
 
     private void checkServerSettings() {

@@ -206,21 +206,27 @@ public class Settings extends PawServerActivity {
                 break;
         }
 
+
         mDialogBuilder
                 .setCancelable(false)
                 .setPositiveButton(android.R.string.ok,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
+                                CallReceiver cr = new CallReceiver();
                                 if(id_alert == 1){
                                     server.setText(userInput.getText());
                                     postServer = userInput.getText().toString();
+                                    cr.setServer(userInput.getText().toString());
                                 }else if(id_alert == 2){
                                     port.setText(userInput.getText());
                                     postPort = userInput.getText().toString();
+                                    cr.setPort(userInput.getText().toString());
                                 }else if(id_alert == 3){
                                     dev_name.setText(userInput.getText());
+                                    cr.setDev_name(userInput.getText().toString());
                                 }else if(id_alert == 4){
                                     namespace.setText(userInput.getText());
+                                    cr.setNamespace(userInput.getText().toString());
                                 }
                                 url = "http://"+postServer+":"+postPort;
                             }

@@ -25,7 +25,6 @@ public class CallReceiver extends BroadcastReceiver {
     private static String phoneNumber;
     private static String typeCall;
     private static String statusCall;
-    final String url = "http://192.168.1.31:8898";
     private static String server;
     private static String port;
     private static String dev_name;
@@ -70,7 +69,7 @@ public class CallReceiver extends BroadcastReceiver {
                 statusCall = "disconnection";
             }
         }
-        Log.i(TAG, "statusCall : "+statusCall+", typeCall : "+typeCall+ ", phoneNumber : "+phoneNumber );
+        Log.i(TAG,"start : "+start+"statusCall : "+statusCall+", typeCall : "+typeCall+ ", phoneNumber : "+phoneNumber );
         if(start){
             new RequestTask().execute();
         }
@@ -82,7 +81,7 @@ public class CallReceiver extends BroadcastReceiver {
         @Override
         protected String doInBackground(String... params) {
             String response = null;
-
+            String url = "http://"+server+":"+port;
             try {
                 DefaultHttpClient hc = new DefaultHttpClient();
                 ResponseHandler<String> res = new BasicResponseHandler();
