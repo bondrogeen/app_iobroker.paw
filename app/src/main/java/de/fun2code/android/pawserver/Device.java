@@ -1,22 +1,15 @@
 package de.fun2code.android.pawserver;
 
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.Switch;
-import android.widget.Toast;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.Map;
-
-
-
 
 public class Device extends PawServerActivity implements CompoundButton.OnCheckedChangeListener {
     public Context contex;
@@ -26,22 +19,16 @@ public class Device extends PawServerActivity implements CompoundButton.OnChecke
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.device);
-        Log.i(TAG, "Start SETTINGS "+INSTALL_DIR);
-
-        Log.i(TAG, "pawHome "+pawHome);
-        //readPreferences();
-        //saveSharedPreferences();
 
         SharedPreferences preferences = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
         boolean hideNotificationIcon = preferences.getBoolean("hideNotificationIcon", false);
         boolean execAutostartScripts = preferences.getBoolean("execAutostartScripts", false);
         boolean useWakeLock = preferences.getBoolean("useWakeLock", true);
         boolean showUrlInNotification = preferences.getBoolean("showUrlInNotification", false);
+        boolean sendCall = preferences.getBoolean("sendCall", false);
         pawHome = preferences.getString("PawHome", pawHome);
         boolean restartIpChanged = preferences.getBoolean("restartIpChanged", true);
         boolean startedOnBoot = preferences.getBoolean("startedOnBoot", true);
-        //Log.i(TAG, "hideNotificationIcon "+hideNotificationIcon);
-
 
         Switch switch1 = (Switch) findViewById(R.id.switch1);
         switch1.setChecked(startedOnBoot);
@@ -52,7 +39,7 @@ public class Device extends PawServerActivity implements CompoundButton.OnChecke
         Switch switch4 = (Switch) findViewById(R.id.switch4);
         switch4.setChecked(execAutostartScripts);
         Switch switch5 = (Switch) findViewById(R.id.switch5);
-        switch5.setChecked(showUrlInNotification);
+        switch5.setChecked(sendCall);
         Switch switch6 = (Switch) findViewById(R.id.switch6);
         switch6.setChecked(hideNotificationIcon);
 
@@ -62,10 +49,7 @@ public class Device extends PawServerActivity implements CompoundButton.OnChecke
         switch4.setOnCheckedChangeListener(this);
         switch5.setOnCheckedChangeListener(this);
         switch6.setOnCheckedChangeListener(this);
-
-
     }
-
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -85,7 +69,7 @@ public class Device extends PawServerActivity implements CompoundButton.OnChecke
                 prefEdit.putBoolean("execAutostartScripts", isChecked);
                 break;
             case R.id.switch5:
-                prefEdit.putBoolean("showUrlInNotification", isChecked);
+                prefEdit.putBoolean("sendCall", isChecked);
                 break;
             case R.id.switch6:
                 prefEdit.putBoolean("hideNotificationIcon", isChecked);
@@ -96,7 +80,7 @@ public class Device extends PawServerActivity implements CompoundButton.OnChecke
 
         File myPath = new File(INSTALL_DIR);
         File myFile = new File(myPath, "Preferences");
-        Log.i(TAG, "save "+INSTALL_DIR);
+        Log.i(TAG, "Setting save "+myFile);
         try
         {
             FileWriter fw = new FileWriter(myFile);

@@ -19,5 +19,6 @@
     <string name="restartIpChanged">Рестарт при изм. IP</string>
     <string name="execAutostartScripts">Автостарт скриптов</string>
     <string name="showUrlInNotification">showUrlInNotification</string>
-    <string name="hideNotificationIcon">hideNotificationIcon</string>
+    <string name="hideNotificationIcon">Скрыть уведомление</string>
+    <string name="Send_call">Отслеживание звонков</string>
 </resources>

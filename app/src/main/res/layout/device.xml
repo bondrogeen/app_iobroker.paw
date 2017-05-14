@@ -25,7 +25,7 @@
             android:layout_height="wrap_content" android:id="@+id/switch4"
             android:textStyle="bold" android:textSize="18sp" android:padding="10dp" android:layout_marginTop="10dp"/>
     <Switch
-            android:text="@string/showUrlInNotification"
+            android:text="@string/Send_call"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/switch5"
             android:textStyle="bold" android:textSize="18sp" android:padding="10dp" android:layout_marginTop="10dp"/>
