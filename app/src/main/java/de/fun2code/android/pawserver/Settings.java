@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -39,7 +40,7 @@ public class Settings extends PawServerActivity {
     private String postServer;
     private String postPort;
     private ProgressDialog mDialog;
-    private final int mTotalTime = 70;
+    private int mTotalTime = 70;
 
     JSONObject jsonVar = new JSONObject();
 
@@ -65,6 +66,9 @@ public class Settings extends PawServerActivity {
         Log.i(TAG, "Start SETTINGS "+INSTALL_DIR);
         readFile();
     }
+
+
+
 
     void readFile() {
         String sdPath = INSTALL_DIR + "/html/";
@@ -108,6 +112,16 @@ public class Settings extends PawServerActivity {
     }
 
     void writeFile() {
+
+        SharedPreferences prefs = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
+        SharedPreferences.Editor prefEdit = prefs.edit();
+        prefEdit.putString("server", server.getText().toString());
+        prefEdit.putString("port", port.getText().toString());
+        prefEdit.putString("device", dev_name.getText().toString());
+        prefEdit.putString("namespace", namespace.getText().toString());
+        prefEdit.clear().commit();
+
+
         String sdPath = INSTALL_DIR + "/html/";
         File sdFile = new File(sdPath, "setting.json");
         if(!sdFile.exists()){

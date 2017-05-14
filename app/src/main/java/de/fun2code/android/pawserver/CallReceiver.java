@@ -50,8 +50,19 @@ public class CallReceiver extends BroadcastReceiver {
             }
 
         }
+        sendToServer();
+    }
+
+
+    public void sendToServer(){
         new RequestTask().execute();
         Log.i(TAG, "statusCall : "+statusCall+", typeCall : "+typeCall+ ", phoneNumber : "+phoneNumber );
+
+
+
+
+
+
     }
 
 

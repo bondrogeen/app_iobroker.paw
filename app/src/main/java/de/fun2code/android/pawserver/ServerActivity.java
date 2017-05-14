@@ -1,8 +1,9 @@
 package de.fun2code.android.pawserver;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
+
+import android.content.SharedPreferences;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 import de.fun2code.android.pawserver.listener.ServiceListener;
 import de.fun2code.android.pawserver.util.Utils;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ServerActivity extends PawServerActivity implements ServiceListener {
 	@SuppressWarnings("unused")
@@ -33,8 +36,7 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
 		setContentView(R.layout.main);
 		handler = new Handler();
 		viewUrl = (TextView) findViewById(R.id.url);
-		//viewhead = (TextView) findViewById(R.id.head);
-		//viewhead.setText("");
+		viewhead = (TextView) findViewById(R.id.head);
 		ToggleButton toggle = (ToggleButton) findViewById(R.id.toggleButton);
 		toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -53,6 +55,9 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
 		messageHandler = new MessageHandler(this);
 		ServerService.setActivityHandler(messageHandler);
 		ServerService.setActivity(this);
+
+		checkServerSettings();
+
 	}
 
 	@Override
@@ -186,4 +191,43 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
 		}
 	}
 
+	private void checkServerSettings() {
+
+		JSONObject jsonVar =  new JSONObject();
+		if(new File(INSTALL_DIR).exists()) {
+			String sdPath = INSTALL_DIR + "/html/";
+			File sdFile = new File(sdPath, "setting.json");
+			if(sdFile.exists()) {
+				try {
+					BufferedReader br = new BufferedReader(new FileReader(sdFile));
+					String str = "";
+					while ((str = br.readLine()) != null) {
+						//Log.i(TAG, str);
+						jsonVar = new JSONObject(str);
+					}
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				try {
+
+					SharedPreferences prefs = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
+					SharedPreferences.Editor prefEdit = prefs.edit();
+					prefEdit.putString("server", jsonVar.get("server").toString());
+					prefEdit.putString("port", jsonVar.get("port").toString());
+					prefEdit.putString("device", jsonVar.get("device").toString());
+					prefEdit.putString("namespace", jsonVar.get("namespace").toString());
+					prefEdit.clear().commit();
+
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}else{
+				viewhead.setText(R.string.no_setting_server);
+			}
+		}
+	}
 }

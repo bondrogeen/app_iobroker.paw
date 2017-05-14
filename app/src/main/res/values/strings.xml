@@ -2,27 +2,29 @@
 
 <resources>
     <string name="app_name" translatable="false">ioBroker.paw</string>
-    <string name="action_settings" translatable="false">Настройки</string>
-    <string name="server" translatable="false">IP-адрес сервера</string>
-    <string name="port" translatable="false">Порт сервера:</string>
-    <string name="dev_name" translatable="false">Имя устройства</string>
-    <string name="namespace" translatable="false">Имя драйвера</string>
     <string name="server_ip" translatable="false">ioBroker ip</string>
     <string name="server_port" translatable="false">ioBroker port</string>
-    <string name="device_name" translatable="false">Имя уст.</string>
-    <string name="nam_espace" translatable="false">Имя драйвера</string>
-    <string name="server_settings" translatable="false">Сервер</string>
-    <string name="exit" translatable="false">Выход</string>
-    <string name="save_setting" translatable="false">Сохранить настройки?</string>
-    <string name="startedOnBoot" translatable="false">Автостарт</string>
-    <string name="WakeLock" translatable="false">Всегда включен.</string>
-    <string name="restartIpChanged" translatable="false">Рестарт при изменение IP</string>
-    <string name="execAutostartScripts" translatable="false">Автостарт скриптов</string>
     <string name="showUrlInNotification">showUrlInNotification</string>
-    <string name="hideNotificationIcon" translatable="false">Скрыть уведомление</string>
-    <string name="Send_call" translatable="false">Отслеживание звонков</string>
-    <string name="Test" translatable="false">Тест</string>
-    <string name="check" translatable="false">Проверка связи</string>
     <string name="Connection" translatable="false">Connection</string>
+    <string name="startedOnBoot" translatable="false">Autostart</string>
+    <string name="server_settings" translatable="false">Server</string>
+    <string name="server" translatable="false">Server IP address</string>
+    <string name="save_setting" translatable="false">Save settings?</string>
+    <string name="restartIpChanged" translatable="false">Restart when changing IP</string>
+    <string name="port" translatable="false">Port</string>
+    <string name="namespace" translatable="false">namespace</string>
+    <string name="nam_espace" translatable="false">Name adapter</string>
+    <string name="hideNotificationIcon" translatable="false">Hide notification</string>
+    <string name="exit" translatable="false">Exit</string>
+    <string name="execAutostartScripts" translatable="false">Autostart scripts</string>
+    <string name="device_name" translatable="false">Device name</string>
+    <string name="dev_name" translatable="false">Device name</string>
+    <string name="check" translatable="false">Check connection</string>
+    <string name="action_settings" translatable="false">Settings</string>
+    <string name="WakeLock" translatable="false">WakeLock</string>
+    <string name="Test" translatable="false">Test</string>
+    <string name="Send_call" translatable="false">Tracking calls</string>
     <string name="No_connection" translatable="false">No connection</string>
+    <string name="no_setting_server" translatable="false">Attention! \nThere are no ioBroker settings.</string>
+    <string name="action_exit" translatable="false">Exit</string>
 </resources>

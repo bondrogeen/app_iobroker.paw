@@ -15,4 +15,11 @@
             android:title="@string/action_settings"
 
     />
+
+    <item
+            android:id="@+id/action_exit"
+            android:orderInCategory="3"
+            android:title="@string/action_exit"
+
+    />
 </menu>

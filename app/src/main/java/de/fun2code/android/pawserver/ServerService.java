@@ -20,7 +20,6 @@ public class ServerService extends PawServerService {
 		execAutostartScripts = preferences.getBoolean("execAutostartScripts", false);
 		useWakeLock = preferences.getBoolean("useWakeLock", true);
 		showUrlInNotification = preferences.getBoolean("showUrlInNotification", false);
-
 		//pawHome = preferences.getString("PawHome", pawHome);
 		restartIpChanged = preferences.getBoolean("restartIpChanged", true);
 		startedOnBoot = preferences.getBoolean("startedOnBoot", true);
