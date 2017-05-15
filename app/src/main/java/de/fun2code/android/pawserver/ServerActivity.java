@@ -3,6 +3,7 @@ package de.fun2code.android.pawserver;
 import java.io.*;
 import java.util.HashMap;
 
+import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,12 +31,13 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
     public String device;
     public String namespace;
     CallReceiver cr = new CallReceiver();
+    private ProgressDialog mDialog;
+    private int mTotalTime = 70;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         TAG = "ioBroker.paw";
         INSTALL_DIR = android.os.Environment.getExternalStorageDirectory().getAbsolutePath() + "/www";
-        String onfig = INSTALL_DIR + "/conf/ser.xml";
         Log.i(TAG, "INSTALL_DIR " + INSTALL_DIR);
         calledFromRuntime = true;
         super.onCreate(savedInstanceState);
@@ -44,17 +46,13 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
         viewUrl = (TextView) findViewById(R.id.url);
         viewhead = (TextView) findViewById(R.id.head);
 
-
         ToggleButton toggle = (ToggleButton) findViewById(R.id.toggleButton);
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    //viewtvOut.setText("on");
                     startService();
-                    //CallReceiver cr = new CallReceiver();
                     cr.setApp_on(true);
                 } else {
-                    //viewtvOut.setText("off");
                     onServiceStart(false);
                     stopService();
                 }
@@ -65,8 +63,6 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
         messageHandler = new MessageHandler(this);
         ServerService.setActivityHandler(messageHandler);
         ServerService.setActivity(this);
-
-
     }
 
     @Override
@@ -80,7 +76,6 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-        //TextView TextView = (TextView) findViewById(R.id.url);
         switch (id) {
             case R.id.action_settings_server:
                 Intent intent = new Intent(this, Settings.class);
@@ -108,13 +103,11 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
         startService();
         viewUrl.setText(url_temp);
 
-        //CallReceiver cr = new CallReceiver();
-
         if (cr.getPostStatus()!=null){
             if(cr.getPostStatus()){
                 viewhead.setText("");
             }else{
-                viewhead.setText("No response from the server.");
+                viewhead.setText(R.string.no_ping);
             }
             }
 
@@ -158,18 +151,10 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
         startService(serviceIntent);
     }
 
-    /**
-     * Called when the service has been started
-     *
-     * @param success <code>true</code> if service was started successfully,
-     *                otherwise <code>false</code>
-     */
     @Override
     public void onServiceStart(boolean success) {
         if (success) {
-            // Display URL
             PawServerService service = ServerService.getService();
-
             final String url = service.getPawServer().server.protocol
                     + "://" + Utils.getLocalIpAddress() + ":"
                     + service.getPawServer().serverPort;
@@ -189,33 +174,18 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
                 }
             });
         }
-
     }
 
-    /**
-     * Called when the service has been stopped
-     *
-     * @param success <code>true</code> if service was started successfully,
-     *                otherwise <code>false</code>
-     */
     @Override
     public void onServiceStop(boolean success) {
 
     }
 
-    /**
-     * Checks the installation and extracts the content.zip file
-     * to INSTALL_DIR if needed
-     */
+
     private void checkInstallation() {
         if (!new File(INSTALL_DIR).exists()) {
-            // Create directories
             new File(INSTALL_DIR).mkdirs();
-
-            // Files not to overwrite
             HashMap<String, Integer> keepFiles = new HashMap<String, Integer>();
-
-            // Extract ZIP file form assets
             try {
                 extractZip(getAssets().open("content.zip"),
                         INSTALL_DIR, keepFiles);
@@ -223,12 +193,9 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
             } catch (IOException e) {
                 Log.e(TAG, e.getMessage());
             }
-
         }else{
             checkServerSettings();
         }
-
-
     }
 
     private void checkServerSettings() {
@@ -242,7 +209,6 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
                     BufferedReader br = new BufferedReader(new FileReader(sdFile));
                     String str = "";
                     while ((str = br.readLine()) != null) {
-                        //Log.i(TAG, str);
                         jsonVar = new JSONObject(str);
                     }
                 } catch (FileNotFoundException e) {
@@ -253,7 +219,6 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
                     e.printStackTrace();
                 }
                 try {
-
                     server = jsonVar.get("server").toString();
                     port = jsonVar.get("port").toString();
                     device = jsonVar.get("device").toString();
@@ -270,7 +235,6 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
                 prefEdit.putString("namespace", namespace);
                 prefEdit.commit();
 
-                //CallReceiver cr = new CallReceiver();
                 cr.setServer(server);
                 cr.setPort(port);
                 cr.setDev_name(device);
@@ -282,7 +246,6 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
                 cr.setStartBoolean(sendCall);
 
             } else {
-                //CallReceiver cr = new CallReceiver();
                 cr.setStartBoolean(false);
                 viewhead.setText(R.string.no_setting_server);
             }

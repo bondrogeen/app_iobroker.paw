@@ -26,4 +26,5 @@
     <string name="No_connection" translatable="false">No connection</string>
     <string name="no_setting_server" translatable="false">Attention! \nThere are no ioBroker settings.</string>
     <string name="action_exit" translatable="false">Exit</string>
+    <string name="no_ping">No response from the server.</string>
 </resources>
