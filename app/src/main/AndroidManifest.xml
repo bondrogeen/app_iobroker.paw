@@ -84,7 +84,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <receiver android:name=".CallReceiver">
+        <receiver android:name=".Receiver">
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE"/>
                 <action android:name="android.intent.action.NEW_OUTGOING_CALL" />

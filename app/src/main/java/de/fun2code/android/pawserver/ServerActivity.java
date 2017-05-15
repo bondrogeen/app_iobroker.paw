@@ -30,7 +30,7 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
     public String port;
     public String device;
     public String namespace;
-    CallReceiver cr = new CallReceiver();
+    Receiver cr = new Receiver();
     private ProgressDialog mDialog;
     private int mTotalTime = 70;
 
@@ -129,7 +129,7 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
     @Override
     public void stopService() {
 
-        CallReceiver cr = new CallReceiver();
+        Receiver cr = new Receiver();
         cr.setApp_on(false);
 
         Intent serviceIntent = new Intent(this.getApplicationContext(),

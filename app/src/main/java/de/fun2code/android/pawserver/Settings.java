@@ -1,7 +1,6 @@
 package de.fun2code.android.pawserver;
 
 import android.app.AlertDialog;
-import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -21,7 +20,6 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.*;
@@ -212,7 +210,7 @@ public class Settings extends PawServerActivity {
                 .setPositiveButton(android.R.string.ok,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
-                                CallReceiver cr = new CallReceiver();
+                                Receiver cr = new Receiver();
                                 if(id_alert == 1){
                                     server.setText(userInput.getText());
                                     postServer = userInput.getText().toString();

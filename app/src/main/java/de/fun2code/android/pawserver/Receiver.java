@@ -16,7 +16,7 @@ import org.apache.http.message.BasicNameValuePair;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CallReceiver extends BroadcastReceiver {
+public class Receiver extends BroadcastReceiver {
 
     final String TAG = "ioBroker.paw";
     private static String phoneNumber;
