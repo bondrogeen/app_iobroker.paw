@@ -62,6 +62,8 @@ public class CallReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.i(TAG, "BroadcastReceiver onReceive start");
+        Log.i(TAG, "intent "+intent.getAction());
+
         if (start != null && app_on != null) {
             if (start && app_on) {
                 if (intent.getAction().equals("android.intent.action.NEW_OUTGOING_CALL")) {

@@ -78,7 +78,6 @@ public class Device extends PawServerActivity implements CompoundButton.OnChecke
                 break;
         }
 
-        Log.i(TAG, "Setting save "+isChecked);
         prefEdit.commit();
 
         File myPath = new File(INSTALL_DIR);
