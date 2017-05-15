@@ -29,7 +29,7 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
     public String port;
     public String device;
     public String namespace;
-
+    CallReceiver cr = new CallReceiver();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
                 if (isChecked) {
                     //viewtvOut.setText("on");
                     startService();
-                    CallReceiver cr = new CallReceiver();
+                    //CallReceiver cr = new CallReceiver();
                     cr.setApp_on(true);
                 } else {
                     //viewtvOut.setText("off");
@@ -107,6 +107,21 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
         ServerService.registerServiceListener(this);
         startService();
         viewUrl.setText(url_temp);
+
+        //CallReceiver cr = new CallReceiver();
+
+        if (cr.getPostStatus()!=null){
+            if(cr.getPostStatus()){
+                viewhead.setText("");
+            }else{
+                viewhead.setText("No response from the server.");
+            }
+            }
+
+
+
+
+
     }
 
     @Override
@@ -255,7 +270,7 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
                 prefEdit.putString("namespace", namespace);
                 prefEdit.commit();
 
-                CallReceiver cr = new CallReceiver();
+                //CallReceiver cr = new CallReceiver();
                 cr.setServer(server);
                 cr.setPort(port);
                 cr.setDev_name(device);
@@ -267,7 +282,7 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
                 cr.setStartBoolean(sendCall);
 
             } else {
-                CallReceiver cr = new CallReceiver();
+                //CallReceiver cr = new CallReceiver();
                 cr.setStartBoolean(false);
                 viewhead.setText(R.string.no_setting_server);
             }

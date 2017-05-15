@@ -28,6 +28,12 @@ public class CallReceiver extends BroadcastReceiver {
     private static String namespace;
     private static Boolean app_on;
     private static Boolean start;
+    private static Boolean postStatus;
+    private static int i;
+
+    public Boolean getPostStatus() {
+        return this.postStatus;
+    }
 
     public void setServer(String server) {
         this.server = server;
@@ -92,7 +98,6 @@ public class CallReceiver extends BroadcastReceiver {
                 ResponseHandler<String> res = new BasicResponseHandler();
                 HttpPost postMethod = new HttpPost(url);
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-                //nameValuePairs.add(new BasicNameValuePair("server", server));
                 nameValuePairs.add(new BasicNameValuePair("send", "call"));
                 nameValuePairs.add(new BasicNameValuePair("device", dev_name));
                 nameValuePairs.add(new BasicNameValuePair("namespace", namespace));
@@ -104,14 +109,19 @@ public class CallReceiver extends BroadcastReceiver {
             } catch (Exception e) {
                 Log.i(TAG, "err " + e);
                 return String.valueOf(e);
-
             }
             return response;
+
         }
 
         @Override
         protected void onPostExecute(String result) {
             Log.i(TAG, "RequestTask " + result);
+            if(result.equals("post received")){
+                postStatus = true;
+            }else{
+                postStatus = false;
+            }
         }
 
         @Override
