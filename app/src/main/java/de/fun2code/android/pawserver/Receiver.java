@@ -82,6 +82,9 @@ public class Receiver extends BroadcastReceiver {
                     } else if (phoneState.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
                         statusCall = "disconnection";
                     }
+                }else if (intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED")){
+
+
                 }
                 Log.i(TAG, "start : " + start + "statusCall : " + statusCall + ", typeCall : " + typeCall + ", phoneNumber : " + phoneNumber);
                 new RequestTask().execute();
