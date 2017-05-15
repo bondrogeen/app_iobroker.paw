@@ -44,12 +44,15 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
         viewUrl = (TextView) findViewById(R.id.url);
         viewhead = (TextView) findViewById(R.id.head);
 
+
         ToggleButton toggle = (ToggleButton) findViewById(R.id.toggleButton);
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     //viewtvOut.setText("on");
                     startService();
+                    CallReceiver cr = new CallReceiver();
+                    cr.setApp_on(true);
                 } else {
                     //viewtvOut.setText("off");
                     onServiceStart(false);
@@ -117,9 +120,15 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
 
     @Override
     public void stopService() {
+
+        CallReceiver cr = new CallReceiver();
+        cr.setApp_on(false);
+
         Intent serviceIntent = new Intent(this.getApplicationContext(),
                 ServerService.class);
         stopService(serviceIntent);
+
+
     }
 
 
@@ -250,6 +259,7 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
                 cr.setServer(server);
                 cr.setPort(port);
                 cr.setDev_name(device);
+                cr.setApp_on(true);
                 cr.setNamespace(namespace);
 
                 SharedPreferences preferences = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);

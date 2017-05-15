@@ -3,11 +3,9 @@ package de.fun2code.android.pawserver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.telephony.TelephonyManager;
-import android.view.View;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -20,7 +18,6 @@ import java.util.List;
 
 public class CallReceiver extends BroadcastReceiver {
 
-    protected static Context cont;
     final String TAG = "ioBroker.paw";
     private static String phoneNumber;
     private static String typeCall;
@@ -29,51 +26,59 @@ public class CallReceiver extends BroadcastReceiver {
     private static String port;
     private static String dev_name;
     private static String namespace;
+    private static Boolean app_on;
     private static Boolean start;
 
-    public void setServer(String server){
+    public void setServer(String server) {
         this.server = server;
     }
-    public void setStartBoolean(Boolean start){
+
+    public void setStartBoolean(Boolean start) {
         this.start = start;
     }
 
-    public void setPort(String port){
+    public void setPort(String port) {
         this.port = port;
     }
-    public void setDev_name(String dev_name){
+
+    public void setDev_name(String dev_name) {
         this.dev_name = dev_name;
     }
-    public void setNamespace(String namespace){
+
+    public void setNamespace(String namespace) {
         this.namespace = namespace;
+    }
+
+    public void setApp_on(Boolean app_on) {
+        this.app_on = app_on;
     }
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
-        if (intent.getAction().equals("android.intent.action.NEW_OUTGOING_CALL")) {
-            phoneNumber = intent.getExtras().getString("android.intent.extra.PHONE_NUMBER");
-            typeCall = "outcoming";
-            statusCall = "ringing";
-        }
-        else if (intent.getAction().equals("android.intent.action.PHONE_STATE")) {
-            String phoneState = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
-            Log.i(TAG, "действие "+phoneState);
-            if (phoneState.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
-                phoneNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
-                typeCall = "incoming";
-                statusCall = "ringing";
-            } else if (phoneState.equals(TelephonyManager.EXTRA_STATE_OFFHOOK)) {
-                statusCall = "connection";
-            } else if (phoneState.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
-                statusCall = "disconnection";
+        Log.i(TAG, "BroadcastReceiver onReceive start");
+        if (start != null && app_on != null) {
+            if (start && app_on) {
+                if (intent.getAction().equals("android.intent.action.NEW_OUTGOING_CALL")) {
+                    phoneNumber = intent.getExtras().getString("android.intent.extra.PHONE_NUMBER");
+                    typeCall = "outcoming";
+                    statusCall = "ringing";
+                } else if (intent.getAction().equals("android.intent.action.PHONE_STATE")) {
+                    String phoneState = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
+                    Log.i(TAG, "действие " + phoneState);
+                    if (phoneState.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
+                        phoneNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
+                        typeCall = "incoming";
+                        statusCall = "ringing";
+                    } else if (phoneState.equals(TelephonyManager.EXTRA_STATE_OFFHOOK)) {
+                        statusCall = "connection";
+                    } else if (phoneState.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
+                        statusCall = "disconnection";
+                    }
+                }
+                Log.i(TAG, "start : " + start + "statusCall : " + statusCall + ", typeCall : " + typeCall + ", phoneNumber : " + phoneNumber);
+                new RequestTask().execute();
             }
         }
-        Log.i(TAG,"start : "+start+"statusCall : "+statusCall+", typeCall : "+typeCall+ ", phoneNumber : "+phoneNumber );
-        if(start){
-            new RequestTask().execute();
-        }
-
     }
 
 
@@ -81,7 +86,7 @@ public class CallReceiver extends BroadcastReceiver {
         @Override
         protected String doInBackground(String... params) {
             String response = null;
-            String url = "http://"+server+":"+port;
+            String url = "http://" + server + ":" + port;
             try {
                 DefaultHttpClient hc = new DefaultHttpClient();
                 ResponseHandler<String> res = new BasicResponseHandler();
@@ -106,7 +111,7 @@ public class CallReceiver extends BroadcastReceiver {
 
         @Override
         protected void onPostExecute(String result) {
-            Log.i(TAG, "RequestTask "+result);
+            Log.i(TAG, "RequestTask " + result);
         }
 
         @Override
