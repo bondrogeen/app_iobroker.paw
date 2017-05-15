@@ -34,6 +34,7 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
     private ProgressDialog mDialog;
     private int mTotalTime = 70;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         TAG = "ioBroker.paw";

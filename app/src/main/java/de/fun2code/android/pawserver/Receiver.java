@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.telephony.SmsMessage;
 import android.util.Log;
 import android.telephony.TelephonyManager;
 import org.apache.http.NameValuePair;
@@ -18,6 +19,8 @@ import java.util.List;
 
 public class Receiver extends BroadcastReceiver {
 
+    private static final String ACTION = "android.provider.Telephony.SMS_RECEIVED";
+
     final String TAG = "ioBroker.paw";
     private static String phoneNumber;
     private static String typeCall;
@@ -29,7 +32,10 @@ public class Receiver extends BroadcastReceiver {
     private static Boolean app_on;
     private static Boolean start;
     private static Boolean postStatus;
+    private static String ReceiverType;
+    private static String smsSend;
     private static int i;
+
 
     public Boolean getPostStatus() {
         return this.postStatus;
@@ -70,7 +76,9 @@ public class Receiver extends BroadcastReceiver {
                     phoneNumber = intent.getExtras().getString("android.intent.extra.PHONE_NUMBER");
                     typeCall = "outcoming";
                     statusCall = "ringing";
+                    ReceiverType = "call";
                 } else if (intent.getAction().equals("android.intent.action.PHONE_STATE")) {
+                    ReceiverType = "call";
                     String phoneState = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
                     Log.i(TAG, "действие " + phoneState);
                     if (phoneState.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
@@ -83,7 +91,25 @@ public class Receiver extends BroadcastReceiver {
                         statusCall = "disconnection";
                     }
                 }else if (intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED")){
+                    ReceiverType = "sms";
 
+                    if (intent != null && intent.getAction() != null &&
+
+                            ACTION.compareToIgnoreCase(intent.getAction()) == 0) {
+                        Object[] pduArray = (Object[]) intent.getExtras().get("pdus");
+                        SmsMessage[] messages = new SmsMessage[pduArray.length];
+                        String sms = "";
+                        for (int i = 0; i < pduArray.length; i++) {
+                            messages[i] = SmsMessage.createFromPdu((byte[]) pduArray[i]);
+                            sms = sms+messages[i].getDisplayMessageBody();
+                        }
+                        Log.i(TAG, "number "+messages[0].getDisplayOriginatingAddress());
+                        Log.i(TAG, "body "+messages[0].getDisplayMessageBody());
+                        Log.i(TAG, "sms "+ sms);
+                        phoneNumber = messages[0].getDisplayOriginatingAddress();
+                        smsSend = sms;
+
+                    }
 
                 }
                 Log.i(TAG, "start : " + start + "statusCall : " + statusCall + ", typeCall : " + typeCall + ", phoneNumber : " + phoneNumber);
@@ -103,13 +129,14 @@ public class Receiver extends BroadcastReceiver {
                 ResponseHandler<String> res = new BasicResponseHandler();
                 HttpPost postMethod = new HttpPost(url);
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-                nameValuePairs.add(new BasicNameValuePair("send", "call"));
+                nameValuePairs.add(new BasicNameValuePair("send", ReceiverType));
+                nameValuePairs.add(new BasicNameValuePair("sms", smsSend));
                 nameValuePairs.add(new BasicNameValuePair("device", dev_name));
                 nameValuePairs.add(new BasicNameValuePair("namespace", namespace));
                 nameValuePairs.add(new BasicNameValuePair("type", typeCall));
                 nameValuePairs.add(new BasicNameValuePair("number", phoneNumber));
                 nameValuePairs.add(new BasicNameValuePair("status", statusCall));
-                postMethod.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+                postMethod.setEntity(new UrlEncodedFormEntity(nameValuePairs,"UTF-8"));
                 response = hc.execute(postMethod, res);
             } catch (Exception e) {
                 Log.i(TAG, "err " + e);
