@@ -3,6 +3,9 @@ package de.fun2code.android.pawserver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.telephony.SmsMessage;
 import android.util.Log;
@@ -34,9 +37,10 @@ public class Receiver extends BroadcastReceiver {
     private static Boolean postStatus;
     private static String ReceiverType;
     private static String body;
+    private static Boolean status_network;
     private static int i;
 
-
+    Context cont;
     public Boolean getPostStatus() {
         return this.postStatus;
     }
@@ -67,53 +71,79 @@ public class Receiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.i(TAG, "BroadcastReceiver onReceive start");
-        Log.i(TAG, "intent "+intent.getAction());
+        //Log.i(TAG, "BroadcastReceiver onReceive start");
+        //Log.i(TAG, "intent "+intent.getAction());
+        Log.i(TAG, "start "+start);
+        Log.i(TAG, "app_on "+app_on);
 
         if (start != null && app_on != null) {
-            if (start && app_on) {
-                if (intent.getAction().equals("android.intent.action.NEW_OUTGOING_CALL")) {
-                    phoneNumber = intent.getExtras().getString("android.intent.extra.PHONE_NUMBER");
-                    typeCall = "outcoming";
-                    statusCall = "ringing";
-                    ReceiverType = "call";
-                } else if (intent.getAction().equals("android.intent.action.PHONE_STATE")) {
-                    ReceiverType = "call";
-                    String phoneState = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
-                    Log.i(TAG, "действие " + phoneState);
-                    if (phoneState.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
-                        phoneNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
-                        typeCall = "incoming";
+            if (app_on) {
+                if (start){
+                    if (intent.getAction().equals("android.intent.action.NEW_OUTGOING_CALL")) {
+                        phoneNumber = intent.getExtras().getString("android.intent.extra.PHONE_NUMBER");
+                        typeCall = "outcoming";
                         statusCall = "ringing";
-                    } else if (phoneState.equals(TelephonyManager.EXTRA_STATE_OFFHOOK)) {
-                        statusCall = "connection";
-                    } else if (phoneState.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
-                        statusCall = "disconnection";
-                    }
-                }else if (intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED")){
-                    ReceiverType = "sms";
-
-                    if (intent != null && intent.getAction() != null &&
-
-                            ACTION.compareToIgnoreCase(intent.getAction()) == 0) {
-                        Object[] pduArray = (Object[]) intent.getExtras().get("pdus");
-                        SmsMessage[] messages = new SmsMessage[pduArray.length];
-                        String sms = "";
-                        for (int i = 0; i < pduArray.length; i++) {
-                            messages[i] = SmsMessage.createFromPdu((byte[]) pduArray[i]);
-                            sms = sms+messages[i].getDisplayMessageBody();
+                        ReceiverType = "call";
+                        new RequestTask().execute();
+                    } else if (intent.getAction().equals("android.intent.action.PHONE_STATE")) {
+                        ReceiverType = "call";
+                        String phoneState = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
+                        if (phoneState.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
+                            phoneNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
+                            typeCall = "incoming";
+                            statusCall = "ringing";
+                        } else if (phoneState.equals(TelephonyManager.EXTRA_STATE_OFFHOOK)) {
+                            statusCall = "connection";
+                        } else if (phoneState.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
+                            statusCall = "disconnection";
                         }
-                        Log.i(TAG, "number "+messages[0].getDisplayOriginatingAddress());
-                        Log.i(TAG, "body "+messages[0].getDisplayMessageBody());
-                        Log.i(TAG, "sms "+ sms);
-                        phoneNumber = messages[0].getDisplayOriginatingAddress();
-                        body = sms;
+                        new RequestTask().execute();
+                    }else if (intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED")){
+                        ReceiverType = "sms";
+
+                        if (intent != null && intent.getAction() != null &&
+
+                                ACTION.compareToIgnoreCase(intent.getAction()) == 0) {
+                            Object[] pduArray = (Object[]) intent.getExtras().get("pdus");
+                            SmsMessage[] messages = new SmsMessage[pduArray.length];
+                            String sms = "";
+                            for (int i = 0; i < pduArray.length; i++) {
+                                messages[i] = SmsMessage.createFromPdu((byte[]) pduArray[i]);
+                                sms = sms+messages[i].getDisplayMessageBody();
+                            }
+                            phoneNumber = messages[0].getDisplayOriginatingAddress();
+                            body = sms;
+                            new RequestTask().execute();
+                        }
 
                     }
-
+                    //Log.i(TAG, "start : " + start + "statusCall : " + statusCall + ", typeCall : " + typeCall + ", phoneNumber : " + phoneNumber);
                 }
-                Log.i(TAG, "start : " + start + "statusCall : " + statusCall + ", typeCall : " + typeCall + ", phoneNumber : " + phoneNumber);
-                new RequestTask().execute();
+
+                if (intent.getAction().equals("android.net.conn.CONNECTIVITY_CHANGE")){
+
+                    final ConnectivityManager connMgr = (ConnectivityManager) context
+                            .getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                    final android.net.NetworkInfo wifi = connMgr
+                            .getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+                    final android.net.NetworkInfo mobile = connMgr
+                            .getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+                    if (wifi.isConnected() || mobile.isConnected()) {
+                        start = true;
+                        if (!ServerService.isRunning()) {
+                            Intent serviceIntent = new Intent(context, ServerService.class);
+                            context.startService(serviceIntent);
+                        }
+
+                    }else{
+                        start = false;
+                        Intent  intent_i = new Intent(context, ServerService.class);
+                        context.stopService(intent_i);
+                    }
+                }
             }
         }
     }

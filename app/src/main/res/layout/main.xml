@@ -16,7 +16,7 @@
 
     <ToggleButton
             android:id="@+id/toggleButton"
-            android:layout_width="100dp"
+            android:layout_width="148dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center"
             android:checked="true"

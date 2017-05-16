@@ -22,7 +22,7 @@
     <string name="action_settings" translatable="false">Settings</string>
     <string name="WakeLock" translatable="false">WakeLock</string>
     <string name="Test" translatable="false">Test</string>
-    <string name="Send_call" translatable="false">Tracking calls</string>
+    <string name="Send_call" translatable="false">Send calls and message</string>
     <string name="No_connection" translatable="false">No connection</string>
     <string name="no_setting_server" translatable="false">Attention! \nThere are no ioBroker settings.</string>
     <string name="action_exit" translatable="false">Exit</string>

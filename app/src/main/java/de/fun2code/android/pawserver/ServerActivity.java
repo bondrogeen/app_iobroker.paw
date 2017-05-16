@@ -4,11 +4,11 @@ import java.io.*;
 import java.util.HashMap;
 
 import android.app.ProgressDialog;
-import android.content.SharedPreferences;
+import android.content.*;
+import android.net.ConnectivityManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -33,7 +33,7 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
     Receiver cr = new Receiver();
     private ProgressDialog mDialog;
     private int mTotalTime = 70;
-
+    ToggleButton toggle;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,13 +46,14 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
         handler = new Handler();
         viewUrl = (TextView) findViewById(R.id.url);
         viewhead = (TextView) findViewById(R.id.head);
-
-        ToggleButton toggle = (ToggleButton) findViewById(R.id.toggleButton);
+        cr.setApp_on(true);
+        toggle = (ToggleButton) findViewById(R.id.toggleButton);
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    startService();
-                    cr.setApp_on(true);
+                    if (!ServerService.isRunning()) {
+                        startService();
+                    }
                 } else {
                     onServiceStart(false);
                     stopService();
@@ -64,6 +65,30 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
         messageHandler = new MessageHandler(this);
         ServerService.setActivityHandler(messageHandler);
         ServerService.setActivity(this);
+
+        BroadcastReceiver br = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Log.i(TAG, "main BroadcastReceiver ");
+                final ConnectivityManager connMgr = (ConnectivityManager) context
+                        .getSystemService(Context.CONNECTIVITY_SERVICE);
+                final android.net.NetworkInfo wifi = connMgr
+                        .getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+                final android.net.NetworkInfo mobile = connMgr
+                        .getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+                if (wifi.isConnected()) {
+                    toggle.setChecked(true);
+                    cr.setStartBoolean(true);
+                }else{
+                    toggle.setChecked(false);
+                    cr.setStartBoolean(false);
+                }
+            }
+        };
+
+        IntentFilter intFilt = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
+        registerReceiver(br, intFilt);
+
     }
 
     @Override
@@ -71,7 +96,13 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
 
+
     }
+
+
+
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -102,7 +133,7 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
         super.onResume();
         ServerService.registerServiceListener(this);
         startService();
-        viewUrl.setText(url_temp);
+
 
         if (cr.getPostStatus()!=null){
             if(cr.getPostStatus()){
@@ -110,12 +141,7 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
             }else{
                 viewhead.setText(R.string.no_ping);
             }
-            }
-
-
-
-
-
+        }
     }
 
     @Override
@@ -143,6 +169,8 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
 
     @Override
     public void startService() {
+        viewUrl.setText(url_temp);
+        cr.setApp_on(true);
         if (ServerService.isRunning()) {
             return;
         }

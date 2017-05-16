@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">ioBroker.paw</string>
     <string name="Connection" translatable="false">Соединение</string>
-    <string name="Send_call" translatable="false">Отслеживание звонков</string>
+    <string name="Send_call" translatable="false">Отправлять звонки и сообщения</string>
     <string name="Test" translatable="false">Тест</string>
     <string name="WakeLock" translatable="false">Всегда включен.</string>
     <string name="action_settings" translatable="false">Настройки</string>

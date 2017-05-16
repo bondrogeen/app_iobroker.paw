@@ -17,7 +17,7 @@
     <string name="port">Port</string>
     <string name="save_setting">Einstellungen speichern?</string>
     <string name="restartIpChanged">Neu starten, wenn die IP-Wechsel</string>
-    <string name="Send_call">Call-Tracking</string>
+    <string name="Send_call">Senden Sie die Anrufer- und Nachrichten-</string>
     <string name="Test" translatable="false">Test</string>
     <string name="Connection">Connection</string>
     <string name="check" translatable="false">Verbindungsprüfung</string>
