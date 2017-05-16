@@ -18,9 +18,9 @@ android {
 }
 
 dependencies {
-    compile files('D:\\android_studio\\BuildOwnPawServer\\libs\\brazil.jar')
-    compile files('D:\\android_studio\\BuildOwnPawServer\\libs\\bsh-2.1.8.jar')
-    compile files('D:\\android_studio\\BuildOwnPawServer\\libs\\commons-codec.jar')
-    compile files('D:\\android_studio\\BuildOwnPawServer\\libs\\jdom-android.jar')
-    compile files('D:\\android_studio\\BuildOwnPawServer\\libs\\paw-server.jar')
+    compile files('D:\\android_studio\\app_iobroker.paw\\libs\\brazil.jar')
+    compile files('D:\\android_studio\\app_iobroker.paw\\libs\\bsh-2.1.8.jar')
+    compile files('D:\\android_studio\\app_iobroker.paw\\libs\\commons-codec.jar')
+    compile files('D:\\android_studio\\app_iobroker.paw\\libs\\jdom-android.jar')
+    compile files('D:\\android_studio\\app_iobroker.paw\\libs\\paw-server.jar')
 }
