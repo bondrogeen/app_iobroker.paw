@@ -37,7 +37,7 @@ public class Receiver extends BroadcastReceiver {
     private static Boolean postStatus;
     private static String ReceiverType;
     private static String body;
-    private static Boolean status_network;
+    private static Boolean sendcall;
     private static int i;
 
     Context cont;
@@ -51,6 +51,10 @@ public class Receiver extends BroadcastReceiver {
 
     public void setStartBoolean(Boolean start) {
         this.start = start;
+    }
+
+    public void setSendCall(Boolean sendcall) {
+        this.sendcall = sendcall;
     }
 
     public void setPort(String port) {
@@ -75,10 +79,11 @@ public class Receiver extends BroadcastReceiver {
         //Log.i(TAG, "intent "+intent.getAction());
         Log.i(TAG, "start "+start);
         Log.i(TAG, "app_on "+app_on);
+        Log.i(TAG, "sendcall "+sendcall);
 
-        if (start != null && app_on != null) {
+        if (start != null && app_on != null && sendcall != null) {
             if (app_on) {
-                if (start){
+                if (start&&sendcall){
                     if (intent.getAction().equals("android.intent.action.NEW_OUTGOING_CALL")) {
                         phoneNumber = intent.getExtras().getString("android.intent.extra.PHONE_NUMBER");
                         typeCall = "outcoming";

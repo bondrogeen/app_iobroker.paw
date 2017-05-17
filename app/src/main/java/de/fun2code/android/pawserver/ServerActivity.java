@@ -38,7 +38,7 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
     @Override
     public void onCreate(Bundle savedInstanceState) {
         TAG = "ioBroker.paw";
-        INSTALL_DIR = android.os.Environment.getExternalStorageDirectory().getAbsolutePath() + "/www";
+        INSTALL_DIR = android.os.Environment.getExternalStorageDirectory().getAbsolutePath() + "/iobroker/paw";
         Log.i(TAG, "INSTALL_DIR " + INSTALL_DIR);
         calledFromRuntime = true;
         super.onCreate(savedInstanceState);
@@ -131,6 +131,7 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
     @Override
     public void onResume() {
         super.onResume();
+
         ServerService.registerServiceListener(this);
         startService();
 
@@ -169,15 +170,19 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
 
     @Override
     public void startService() {
-        viewUrl.setText(url_temp);
-        cr.setApp_on(true);
+
+
+
         if (ServerService.isRunning()) {
-            return;
+            viewUrl.setText(url_temp);
+        }else{
+            cr.setApp_on(true);
+            Intent serviceIntent = new Intent(ServerActivity.this,
+                    ServerService.class);
+            startService(serviceIntent);
         }
 
-        Intent serviceIntent = new Intent(ServerActivity.this,
-                ServerService.class);
-        startService(serviceIntent);
+
     }
 
     @Override
@@ -272,7 +277,8 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
 
                 SharedPreferences preferences = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
                 boolean sendCall = preferences.getBoolean("sendCall", true);
-                cr.setStartBoolean(sendCall);
+
+                cr.setSendCall(sendCall);
 
             } else {
                 cr.setStartBoolean(false);
