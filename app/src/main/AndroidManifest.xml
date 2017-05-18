@@ -81,22 +81,27 @@
                 android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
         <receiver android:name=".Receiver">
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE"/>
-                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
+                <action android:name="android.intent.action.NEW_OUTGOING_CALL"/>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
-            <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
             </intent-filter>
         </receiver>
-
-        <receiver android:name=".ServerReceiver" android:enabled="true" android:exported="false">
+        <receiver
+                android:name=".ServerReceiver"
+                android:enabled="true"
+                android:exported="false">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </receiver>
 
@@ -105,6 +110,8 @@
         <activity android:name=".Settings">
         </activity>
         <activity android:name=".Device">
+        </activity>
+        <activity android:name=".speech">
         </activity>
     </application>
 

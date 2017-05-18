@@ -18,8 +18,15 @@
 
     <item
             android:id="@+id/action_exit"
-            android:orderInCategory="3"
+            android:orderInCategory="100"
             android:title="@string/action_exit"
+
+    />
+
+    <item
+            android:id="@+id/action_speech"
+            android:orderInCategory="4"
+            android:title="@string/action_speech"
 
     />
 </menu>

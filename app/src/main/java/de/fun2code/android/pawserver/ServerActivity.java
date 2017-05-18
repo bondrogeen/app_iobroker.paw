@@ -114,6 +114,11 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
                 startActivity(intent);
                 return true;
 
+            case R.id.action_speech:
+                Intent ii = new Intent(this, speech.class);
+                startActivity(ii);
+                return true;
+
             case R.id.action_settings:
                 Intent i = new Intent(this, Device.class);
                 startActivity(i);

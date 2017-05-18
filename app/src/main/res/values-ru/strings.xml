@@ -4,7 +4,7 @@
     <string name="Connection" translatable="false">Соединение</string>
     <string name="Send_call" translatable="false">Отправлять звонки и сообщения</string>
     <string name="Test" translatable="false">Тест</string>
-    <string name="WakeLock" translatable="false">Всегда включен.</string>
+    <string name="WakeLock" translatable="false">Экран всегда включен</string>
     <string name="action_settings" translatable="false">Настройки</string>
     <string name="check" translatable="false">Проверка связи</string>
     <string name="dev_name" translatable="false">Имя устройства</string>
@@ -22,7 +22,7 @@
     <string name="server_settings" translatable="false">Сервер</string>
     <string name="showUrlInNotification">showUrlInNotification</string>
     <string name="startedOnBoot" translatable="false">Автостарт</string>
-    <string name="No_connection">Нет соединение</string>
+    <string name="No_connection">Нет соединения</string>
     <string name="no_setting_server">Внимание! \nНет настроек ioBroker.</string>
     <string name="action_exit" translatable="false">Выход</string>
 </resources>

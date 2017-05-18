@@ -27,4 +27,5 @@
     <string name="no_setting_server" translatable="false">Attention! \nThere are no ioBroker settings.</string>
     <string name="action_exit" translatable="false">Exit</string>
     <string name="no_ping">No response from the server.</string>
+    <string name="action_speech">speech</string>
 </resources>
