@@ -56,12 +56,25 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
         imageView = (ImageView) findViewById(R.id.imageView);
         cr.setApp_on(true);
 
+        final ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        final android.net.NetworkInfo wifi = connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+        SharedPreferences preferences = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
+        Boolean startedOnBoot = preferences.getBoolean("startedOnBoot", true);
+
+        if(startedOnBoot&&wifi.isConnected()){
+            startService();
+        }else{
+
+        }
+        start = startedOnBoot;
+
         if (ServerService.isRunning()) {
             imageView.setImageResource(R.drawable.on);
-            start = true;
+
         }else{
             imageView.setImageResource(R.drawable.off);
-            start = false;
+
         }
 
         imageView.setOnClickListener(onClickListener);
@@ -69,26 +82,6 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
         messageHandler = new MessageHandler(this);
         ServerService.setActivityHandler(messageHandler);
         ServerService.setActivity(this);
-
-        BroadcastReceiver br = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                Log.i(TAG, "main BroadcastReceiver ");
-                final ConnectivityManager connMgr = (ConnectivityManager) context
-                        .getSystemService(Context.CONNECTIVITY_SERVICE);
-                final android.net.NetworkInfo wifi = connMgr
-                        .getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-                final android.net.NetworkInfo mobile = connMgr
-                        .getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-                if (wifi.isConnected()) {
-                    cr.setStartBoolean(true);
-                }else{
-                    cr.setStartBoolean(false);
-                }
-            }
-        };
-        IntentFilter intFilt = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
-        registerReceiver(br, intFilt);
 
     }
 
@@ -205,17 +198,15 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
             viewUrl.setText(url_temp);
         }else{
             cr.setApp_on(true);
-            Intent serviceIntent = new Intent(ServerActivity.this,
-                    ServerService.class);
+            Intent serviceIntent = new Intent(ServerActivity.this, ServerService.class);
             startService(serviceIntent);
         }
-
-
     }
 
     @Override
     public void onServiceStart(boolean success) {
         if (success) {
+            imageView.setImageResource(R.drawable.on);
             PawServerService service = ServerService.getService();
             final String url = service.getPawServer().server.protocol
                     + "://" + Utils.getLocalIpAddress() + ":"
@@ -240,6 +231,14 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
 
     @Override
     public void onServiceStop(boolean success) {
+
+        if (ServerService.isRunning()) {
+            imageView.setImageResource(R.drawable.on);
+            viewUrl.setText(url_temp);
+        }else{
+            imageView.setImageResource(R.drawable.off);
+            viewUrl.setText(" ");
+        }
 
     }
 

@@ -136,17 +136,17 @@ public class Receiver extends BroadcastReceiver {
                     final android.net.NetworkInfo mobile = connMgr
                             .getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 
-                    if (wifi.isConnected() || mobile.isConnected()) {
+                    //if (wifi.isConnected() || mobile.isConnected()) {
+                    if (wifi.isConnected()) {
                         start = true;
                         if (!ServerService.isRunning()) {
                             Intent serviceIntent = new Intent(context, ServerService.class);
                             context.startService(serviceIntent);
                         }
-
                     }else{
                         start = false;
-                        Intent  intent_i = new Intent(context, ServerService.class);
-                        context.stopService(intent_i);
+                        Intent serviceIntent = new Intent(context, ServerService.class);
+                        context.stopService(serviceIntent);
                     }
                 }
             }
