@@ -34,6 +34,7 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
     private ProgressDialog mDialog;
     private int mTotalTime = 70;
     ToggleButton toggle;
+    Intent intent;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -115,14 +116,20 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
                 return true;
 
             case R.id.action_speech:
-                Intent ii = new Intent(this, speech.class);
-                startActivity(ii);
+                intent = new Intent(this, Speech.class);
+                startActivity(intent);
                 return true;
 
             case R.id.action_settings:
-                Intent i = new Intent(this, Device.class);
-                startActivity(i);
+                intent = new Intent(this, Device.class);
+                startActivity(intent);
                 return true;
+
+            case R.id.action_informer:
+                intent = new Intent(this, Informer.class);
+                startActivity(intent);
+                return true;
+
             case R.id.action_exit:
                 onServiceStart(false);
                 stopService();

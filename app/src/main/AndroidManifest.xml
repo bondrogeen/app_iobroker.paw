@@ -111,7 +111,9 @@
         </activity>
         <activity android:name=".Device">
         </activity>
-        <activity android:name=".speech">
+        <activity android:name=".Speech">
+        </activity>
+        <activity android:name=".Informer">
         </activity>
     </application>
 

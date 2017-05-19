@@ -3,30 +3,32 @@
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
       tools:context=".ServerActivity">
-    <item
-            android:id="@+id/action_settings_server"
-            android:orderInCategory="2"
-            android:title="@string/server_settings"
 
-    />
     <item
             android:id="@+id/action_settings"
             android:orderInCategory="1"
             android:title="@string/action_settings"
+    />
+    <item
+            android:id="@+id/action_settings_server"
+            android:orderInCategory="2"
+            android:title="@string/server_settings"
+    />
+    <item
+            android:id="@+id/action_speech"
+            android:orderInCategory="3"
+            android:title="@string/action_speech"
+    />
 
+    <item
+            android:id="@+id/action_informer"
+            android:orderInCategory="4"
+            android:title="@string/action_informer"
     />
 
     <item
             android:id="@+id/action_exit"
             android:orderInCategory="100"
             android:title="@string/action_exit"
-
-    />
-
-    <item
-            android:id="@+id/action_speech"
-            android:orderInCategory="4"
-            android:title="@string/action_speech"
-
     />
 </menu>

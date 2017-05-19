@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -19,32 +21,32 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class speech extends Activity {
+public class Speech extends Activity {
 
     String TAG = "ioBroker.paw";
     TextView speech_text;
     Button botton_speech;
+    Button botton_informer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.speech);
-
         botton_speech = (Button) findViewById(R.id.speech);
-
         botton_speech.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if(v.getId()==R.id.speech){
-                    Intent intt = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-                    // добаляем дополнительные параметры:
-                    intt.putExtra(RecognizerIntent.EXTRA_PROMPT, "Голосовой поиск Inforino");  // текстовая подсказка пользователю
-                    intt.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);  // модель распознавания
-                    intt.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);  // количество резальтатов, которое мы хотим получить
-                    intt.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault().toString());
-                    startActivityForResult(intt,1);
-
+                switch (v.getId()){
+                    case  R.id.speech:
+                        Intent intt = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                        // добаляем дополнительные параметры:
+                        intt.putExtra(RecognizerIntent.EXTRA_PROMPT, "Голосовой поиск Inforino");  // текстовая подсказка пользователю
+                        intt.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);  // модель распознавания
+                        intt.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);  // количество резальтатов, которое мы хотим получить
+                        intt.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault().toString());
+                        startActivityForResult(intt,1);
+                        break;
                 }
+
             }
         });
 
@@ -59,7 +61,7 @@ public class speech extends Activity {
             listSensorType.add(listSensor.get(i).getName());
 
         }
-        speech_text.setText("");
+        //speech_text.setText("");
         //setListAdapter(new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, listSensorType));
         //getListView().setTextFilterEnabled(true);
 
