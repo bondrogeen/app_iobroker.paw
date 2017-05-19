@@ -25,12 +25,6 @@ public class Informer extends Activity{
 
         setContentView(R.layout.infotmer);
 
-        titleText = (TextView)findViewById(R.id.blank_title) ;
-        titleText.setSelected(true);
-        titleText.setSelected(true);
-        titleText.setEnabled(true);
-        titleText.setFocusable(false);
-        titleText.setTextColor(0xffffffff);
 
     }
 }

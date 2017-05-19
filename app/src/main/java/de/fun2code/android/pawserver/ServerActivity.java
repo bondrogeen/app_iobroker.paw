@@ -8,10 +8,12 @@ import android.content.*;
 import android.net.ConnectivityManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import de.fun2code.android.pawserver.listener.ServiceListener;
@@ -35,6 +37,10 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
     private int mTotalTime = 70;
     ToggleButton toggle;
     Intent intent;
+    ImageView imageView;
+    private static Boolean start;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,21 +53,18 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
         handler = new Handler();
         viewUrl = (TextView) findViewById(R.id.url);
         viewhead = (TextView) findViewById(R.id.head);
+        imageView = (ImageView) findViewById(R.id.imageView);
         cr.setApp_on(true);
-        toggle = (ToggleButton) findViewById(R.id.toggleButton);
-        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    if (!ServerService.isRunning()) {
-                        startService();
-                    }
-                } else {
-                    onServiceStart(false);
-                    stopService();
-                }
-            }
-        });
 
+        if (ServerService.isRunning()) {
+            imageView.setImageResource(R.drawable.on);
+            start = true;
+        }else{
+            imageView.setImageResource(R.drawable.off);
+            start = false;
+        }
+
+        imageView.setOnClickListener(onClickListener);
         checkInstallation();
         messageHandler = new MessageHandler(this);
         ServerService.setActivityHandler(messageHandler);
@@ -78,32 +81,44 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
                 final android.net.NetworkInfo mobile = connMgr
                         .getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
                 if (wifi.isConnected()) {
-                    toggle.setChecked(true);
                     cr.setStartBoolean(true);
                 }else{
-                    toggle.setChecked(false);
                     cr.setStartBoolean(false);
                 }
             }
         };
-
         IntentFilter intFilt = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
         registerReceiver(br, intFilt);
 
     }
 
+
+    private final View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            switch (v.getId()){
+                case R.id.imageView:
+                    start = !start;
+                    if(start){
+                        imageView.setImageResource(R.drawable.on);
+                        startService();
+                    }else{
+                        imageView.setImageResource(R.drawable.off);
+                        onServiceStart(false);
+                        stopService();
+                    }
+
+                    break;
+            }
+        }
+    };
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
-
-
     }
-
-
-
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -145,7 +160,15 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
         super.onResume();
 
         ServerService.registerServiceListener(this);
-        startService();
+        //startService();
+
+
+        if (ServerService.isRunning()) {
+            imageView.setImageResource(R.drawable.on);
+            viewUrl.setText(url_temp);
+        }else{
+            imageView.setImageResource(R.drawable.off);
+        }
 
 
         if (cr.getPostStatus()!=null){
@@ -161,21 +184,14 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
     public void onDestroy() {
         super.onDestroy();
         //stopService();
-
         ServerService.unregisterServiceListener(this);
-
     }
 
     @Override
     public void stopService() {
-
-        Receiver cr = new Receiver();
         cr.setApp_on(false);
-
-        Intent serviceIntent = new Intent(this.getApplicationContext(),
-                ServerService.class);
+        Intent serviceIntent = new Intent(this.getApplicationContext(), ServerService.class);
         stopService(serviceIntent);
-
 
     }
 
@@ -183,7 +199,7 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
     @Override
     public void startService() {
 
-
+        ServerService.registerServiceListener(this);
 
         if (ServerService.isRunning()) {
             viewUrl.setText(url_temp);

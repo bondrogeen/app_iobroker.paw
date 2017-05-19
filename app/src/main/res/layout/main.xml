@@ -14,13 +14,10 @@
             android:textStyle="bold" android:textAllCaps="false"
             android:textSize="18sp" android:textColor="@android:color/holo_red_dark"/>
 
-    <ToggleButton
-            android:id="@+id/toggleButton"
-            android:layout_width="148dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|center"
-            android:checked="true"
-            android:gravity="center"/>
+    <ImageView
+            android:src="@drawable/off"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/imageView" android:layout_gravity="center"/>
 
     <TextView
             android:id="@+id/url"
