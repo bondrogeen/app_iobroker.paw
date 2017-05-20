@@ -1,10 +1,15 @@
 package de.fun2code.android.pawserver;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
@@ -16,6 +21,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -26,30 +32,21 @@ public class Speech extends Activity {
     String TAG = "ioBroker.paw";
     TextView speech_text;
     Button botton_speech;
-    Button botton_informer;
+    Button botton;
+    Bitmap bitmam;
+    Intent intent;
+    Context context;
+    NotificationManager nm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.speech);
         botton_speech = (Button) findViewById(R.id.speech);
-        botton_speech.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()){
-                    case  R.id.speech:
-                        Intent intt = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-                        // добаляем дополнительные параметры:
-                        intt.putExtra(RecognizerIntent.EXTRA_PROMPT, "Голосовой поиск Inforino");  // текстовая подсказка пользователю
-                        intt.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);  // модель распознавания
-                        intt.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);  // количество резальтатов, которое мы хотим получить
-                        intt.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault().toString());
-                        startActivityForResult(intt,1);
-                        break;
-                }
+        botton = (Button) findViewById(R.id.button3);
 
-            }
-        });
-
+        botton.setOnClickListener(onClickListener);
+        botton_speech.setOnClickListener(onClickListener);
 
         SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         List<Sensor> listSensor = sensorManager.getSensorList(Sensor.TYPE_ALL);
@@ -67,6 +64,31 @@ public class Speech extends Activity {
 
 
     }
+
+
+    private final View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            switch (v.getId()){
+                case  R.id.speech:
+                    Intent intt = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                    // добаляем дополнительные параметры:
+                    intt.putExtra(RecognizerIntent.EXTRA_PROMPT, "Голосовой поиск");  // текстовая подсказка пользователю
+                    intt.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);  // модель распознавания
+                    intt.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);  // количество резальтатов, которое мы хотим получить
+                    intt.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault().toString());
+                    startActivityForResult(intt,1);
+                    break;
+                case R.id.button3:
+                    Log.i(TAG, "button0 ");
+
+
+                    break;
+
+            }
+        }
+    };
 
 
 

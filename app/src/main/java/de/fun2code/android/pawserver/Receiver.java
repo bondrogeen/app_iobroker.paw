@@ -77,7 +77,6 @@ public class Receiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         //Log.i(TAG, "BroadcastReceiver onReceive start");
         //Log.i(TAG, "intent "+intent.getAction());
-        Log.i(TAG, "start "+start);
         Log.i(TAG, "app_on "+app_on);
         Log.i(TAG, "sendcall "+sendcall);
 
