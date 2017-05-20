@@ -71,10 +71,10 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
 
         if (ServerService.isRunning()) {
             imageView.setImageResource(R.drawable.on);
-
+            start = true;
         }else{
             imageView.setImageResource(R.drawable.off);
-
+            start = false;
         }
 
         imageView.setOnClickListener(onClickListener);
@@ -139,6 +139,7 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
                 return true;
 
             case R.id.action_exit:
+                cr.setApp_on(false);
                 onServiceStart(false);
                 stopService();
                 this.finish();
@@ -178,11 +179,11 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
         super.onDestroy();
         //stopService();
         ServerService.unregisterServiceListener(this);
+
     }
 
     @Override
     public void stopService() {
-        cr.setApp_on(false);
         Intent serviceIntent = new Intent(this.getApplicationContext(), ServerService.class);
         stopService(serviceIntent);
 
@@ -205,6 +206,7 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
 
     @Override
     public void onServiceStart(boolean success) {
+        start = true;
         if (success) {
             imageView.setImageResource(R.drawable.on);
             PawServerService service = ServerService.getService();
@@ -231,7 +233,7 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
 
     @Override
     public void onServiceStop(boolean success) {
-
+        start = false;
         if (ServerService.isRunning()) {
             imageView.setImageResource(R.drawable.on);
             viewUrl.setText(url_temp);

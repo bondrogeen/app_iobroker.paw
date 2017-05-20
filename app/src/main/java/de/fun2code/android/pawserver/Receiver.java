@@ -81,9 +81,9 @@ public class Receiver extends BroadcastReceiver {
         Log.i(TAG, "app_on "+app_on);
         Log.i(TAG, "sendcall "+sendcall);
 
-        if (start != null && app_on != null && sendcall != null) {
+        if (app_on != null && sendcall != null) {
             if (app_on) {
-                if (start&&sendcall){
+                if (sendcall){
                     if (intent.getAction().equals("android.intent.action.NEW_OUTGOING_CALL")) {
                         phoneNumber = intent.getExtras().getString("android.intent.extra.PHONE_NUMBER");
                         typeCall = "outcoming";
@@ -138,13 +138,11 @@ public class Receiver extends BroadcastReceiver {
 
                     //if (wifi.isConnected() || mobile.isConnected()) {
                     if (wifi.isConnected()) {
-                        start = true;
                         if (!ServerService.isRunning()) {
                             Intent serviceIntent = new Intent(context, ServerService.class);
                             context.startService(serviceIntent);
                         }
                     }else{
-                        start = false;
                         Intent serviceIntent = new Intent(context, ServerService.class);
                         context.stopService(serviceIntent);
                     }
