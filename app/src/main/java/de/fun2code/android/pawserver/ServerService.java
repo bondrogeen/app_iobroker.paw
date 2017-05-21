@@ -13,8 +13,8 @@ public class ServerService extends PawServerService {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-
 		TAG = getString(R.string.app_name);
+        Log.i(TAG, "ServerService Start ");
 		SharedPreferences preferences = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
 		hideNotificationIcon = preferences.getBoolean("hideNotificationIcon", false);
 		execAutostartScripts = preferences.getBoolean("execAutostartScripts", false);

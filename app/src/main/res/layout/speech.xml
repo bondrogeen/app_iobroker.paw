@@ -5,11 +5,6 @@
               android:layout_height="match_parent">
 
     <Button
-            android:text="noti"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/button3" android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp" android:layout_gravity="center"/>
-    <Button
             android:text="Speech"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/speech" android:layout_marginTop="20dp"

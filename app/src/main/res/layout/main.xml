@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:weightSum="1"
               android:orientation="vertical">
@@ -10,23 +11,34 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="20dp" android:gravity="center"
-            android:textStyle="bold" android:textAllCaps="false"
-            android:textSize="18sp" android:textColor="@android:color/holo_red_dark"/>
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:textColor="@android:color/holo_red_dark"/>
 
     <ImageView
             android:src="@drawable/off"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/imageView" android:layout_gravity="center"/>
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:layout_gravity="center"/>
 
     <TextView
             android:id="@+id/url"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center"
-            android:text="" android:padding="10dp" android:paddingBottom="10dp" android:paddingLeft="10dp"
-            android:paddingRight="10dp" android:paddingTop="10dp"
-            android:textSize="18sp" android:gravity="center"/>
+            android:text=""
+            android:padding="10dp"
+            android:autoLink="web"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:textSize="18sp"
+            android:gravity="center"/>
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -34,14 +46,21 @@
         <TextView
                 android:text="http://www.iobroker.net"
                 android:layout_width="wrap_content"
-                android:layout_height="20dp" android:id="@+id/textView4" android:autoLink="web"
-                android:autoText="false" android:clickable="true"
-                android:filterTouchesWhenObscured="false" android:focusable="false"
+                android:layout_height="20dp"
+                android:id="@+id/textView4"
+                android:autoLink="web"
+                android:autoText="false"
+                android:clickable="true"
+                android:filterTouchesWhenObscured="false"
+                android:focusable="false"
                 android:hapticFeedbackEnabled="false"
-                android:textAllCaps="false" android:textStyle="italic"
-                android:layout_marginTop="10dp" android:gravity="right|center"
+                android:textAllCaps="false"
+                android:textStyle="italic"
+                android:layout_marginTop="10dp"
+                android:gravity="right|center"
                 android:scrollHorizontally="false"
-                android:layout_gravity="bottom|center" android:layout_weight="1"/>
+                android:layout_gravity="bottom|center"
+                android:layout_weight="1"/>
     </LinearLayout>
 
 

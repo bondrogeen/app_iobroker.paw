@@ -41,11 +41,12 @@ public class Speech extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i(TAG, "Start Speech");
         setContentView(R.layout.speech);
         botton_speech = (Button) findViewById(R.id.speech);
-        botton = (Button) findViewById(R.id.button3);
+        //botton = (Button) findViewById(R.id.button3);
 
-        botton.setOnClickListener(onClickListener);
+        //botton.setOnClickListener(onClickListener);
         botton_speech.setOnClickListener(onClickListener);
 
         SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -80,11 +81,7 @@ public class Speech extends Activity {
                     intt.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault().toString());
                     startActivityForResult(intt,1);
                     break;
-                case R.id.button3:
-                    Log.i(TAG, "button0 ");
 
-
-                    break;
 
             }
         }
