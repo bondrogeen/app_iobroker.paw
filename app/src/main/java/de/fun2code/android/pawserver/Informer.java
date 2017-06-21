@@ -33,7 +33,7 @@ public class Informer extends Activity{
     private final String TEXT_COLOR = "#000000";
     private final String TAG = "ioBroker.paw";
     private LinearLayout bglayout;
-
+    private final String ORIENTATION = "0";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +52,7 @@ public class Informer extends Activity{
         String textcolor = intent.getStringExtra("textcolor");
         String size = intent.getStringExtra("size");
         String color = intent.getStringExtra("color");
-
-        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        String orientation = intent.getStringExtra("orientation");
 
         int rotate = getWindowManager().getDefaultDisplay().getRotation();
 
@@ -71,6 +70,19 @@ public class Informer extends Activity{
         if(textcolor == null){
             textcolor = TEXT_COLOR;
         }
+        if(orientation!= null){
+
+            if (orientation.equals("0")) {
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            }else if (orientation.equals("90")) {
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            }else if (orientation.equals("180")) {
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT);
+            }else if (orientation.equals("270")) {
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);
+            }
+
+        }
 
         bglayout.setBackgroundColor(Color.parseColor(color));
         titleText.setTextColor(Color.parseColor(textcolor));
@@ -87,5 +99,8 @@ public class Informer extends Activity{
 
 
 
-
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
 }
