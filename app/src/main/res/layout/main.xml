@@ -60,7 +60,7 @@
                 android:gravity="right|center"
                 android:scrollHorizontally="false"
                 android:layout_gravity="bottom|center"
-                android:layout_weight="1"/>
+                android:layout_weight="1" tools:ignore="TextViewEdits"/>
     </LinearLayout>
 
 

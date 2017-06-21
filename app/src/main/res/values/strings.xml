@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <string name="app_name">ioBroker.paw</string>
-    <string name="server_ip">ioBroker ip</string>
-    <string name="server_port">ioBroker port</string>
-    <string name="showUrlInNotification">showUrlInNotification</string>
-    <string name="Connection">Connection</string>
-    <string name="startedOnBoot">Autostart</string>
-    <string name="server_settings">Server</string>
-    <string name="server">Server IP address</string>
-    <string name="save_setting">Save settings?</string>
-    <string name="restartIpChanged">Restart when changing IP</string>
-    <string name="port">Port</string>
-    <string name="namespace">Adapter name</string>
-    <string name="hideNotificationIcon">Hide notification</string>
-    <string name="exit">Exit</string>
-    <string name="execAutostartScripts">Autostart scripts</string>
-    <string name="device_name">Device name</string>
-    <string name="dev_name">Device name</string>
-    <string name="check">Check connection</string>
-    <string name="action_settings">Settings</string>
-    <string name="WakeLock">WakeLock</string>
-    <string name="Test">Test</string>
-    <string name="Send_call">Send calls and message</string>
-    <string name="No_connection">No connection</string>
-    <string name="no_setting_server">Attention! \nThere are no ioBroker settings.</string>
-    <string name="action_exit">Exit</string>
-    <string name="no_ping">No response from the server.</string>
-    <string name="action_speech">speech</string>
-    <string name="action_informer">informer</string>
+    <string name="app_name" translatable="false">ioBroker.paw</string>
+    <string name="server_ip" translatable="false">ioBroker ip</string>
+    <string name="server_port" translatable="false">ioBroker port</string>
+    <string name="showUrlInNotification" translatable="false">showUrlInNotification</string>
+    <string name="Connection" translatable="false">Connection</string>
+    <string name="startedOnBoot" translatable="false">Autostart</string>
+    <string name="server_settings" translatable="false">Server</string>
+    <string name="server" translatable="false">Server IP address</string>
+    <string name="save_setting" translatable="false">Save settings?</string>
+    <string name="restartIpChanged" translatable="false">Restart when changing IP</string>
+    <string name="port" translatable="false">Port</string>
+    <string name="namespace" translatable="false">Adapter name</string>
+    <string name="hideNotificationIcon" translatable="false">Hide notification</string>
+    <string name="exit" translatable="false">Exit</string>
+    <string name="execAutostartScripts" translatable="false">Autostart scripts</string>
+    <string name="device_name" translatable="false">Device name</string>
+    <string name="dev_name" translatable="false">Device name</string>
+    <string name="check" translatable="false">Check connection</string>
+    <string name="action_settings" translatable="false">Settings</string>
+    <string name="WakeLock" translatable="false">WakeLock</string>
+    <string name="Test" translatable="false">Test</string>
+    <string name="Send_call" translatable="false">Send calls and message</string>
+    <string name="No_connection" translatable="false">No connection</string>
+    <string name="no_setting_server" translatable="false">Attention! \nThere are no ioBroker settings.</string>
+    <string name="action_exit" translatable="false">Exit</string>
+    <string name="no_ping" translatable="false">No response from the server.</string>
+    <string name="action_speech" translatable="false">speech</string>
+    <string name="action_informer" translatable="false">informer</string>
 </resources>

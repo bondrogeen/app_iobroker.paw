@@ -88,6 +88,17 @@ public class Speech extends Activity {
     };
 
 
+    public static String speech (String voice ){
+
+        voice = "test";
+
+        return voice;
+
+    }
+
+
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

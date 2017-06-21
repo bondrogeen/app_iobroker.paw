@@ -310,6 +310,7 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
                 cr.setSendCall(sendCall);
 
             } else {
+                cr.setSendCall(false);
                 cr.setStartBoolean(false);
                 viewhead.setText(R.string.no_setting_server);
             }
