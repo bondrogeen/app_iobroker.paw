@@ -11,6 +11,8 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
@@ -38,6 +40,8 @@ public class Speech extends Activity {
     Context context;
     NotificationManager nm;
 
+    SensorManager sensorManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,22 +53,21 @@ public class Speech extends Activity {
         //botton.setOnClickListener(onClickListener);
         botton_speech.setOnClickListener(onClickListener);
 
-        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        List<Sensor> listSensor = sensorManager.getSensorList(Sensor.TYPE_ALL);
+        sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
 
-        List<String> listSensorType = new ArrayList<String >();
-        for (int i = 0; i < listSensor.size(); i++) {
-            Log.i(TAG, "listSensor "+listSensor.get(i).getName());
-            Log.i(TAG, "listSensor ");
-            listSensorType.add(listSensor.get(i).getName());
+        Sensor light = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        sensorManager.registerListener(workingSensorEventListener, light, SensorManager.SENSOR_DELAY_NORMAL);
 
-        }
         //speech_text.setText("");
         //setListAdapter(new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, listSensorType));
         //getListView().setTextFilterEnabled(true);
 
 
     }
+
+
+
+
 
 
     private final View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -115,4 +118,28 @@ public class Speech extends Activity {
             Log.i(TAG, "size "+respone.size());
         }
     }
+
+    private final SensorEventListener workingSensorEventListener = new SensorEventListener() {
+
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        }
+
+        public void onSensorChanged(SensorEvent event) {
+            // Получаем атмосферное давление в миллибарах
+            double pressure = event.values[0];
+
+            Log.i(TAG, "size ");
+
+        }
+    };
+
+
+    protected void onStop() {
+        super.onStop();
+        finish();
+
+        sensorManager.unregisterListener(workingSensorEventListener);
+
+    }
+
 }

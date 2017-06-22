@@ -97,7 +97,6 @@ public class Informer extends Activity{
             }
 
         }
-
         bglayout.setBackgroundColor(Color.parseColor(color));
         titleText.setTextColor(Color.parseColor(textcolor));
         titleText.setTextSize(Integer.parseInt(textsize));
@@ -110,17 +109,8 @@ public class Informer extends Activity{
         super.onStop();
         finish();
     }
-
-
-
-
-
     protected void onPause() {
         super.onPause();
         finish();
     }
-
-
-
-
 }
