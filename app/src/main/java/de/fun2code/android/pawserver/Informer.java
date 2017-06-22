@@ -49,7 +49,7 @@ public class Informer extends Activity{
         Intent intent = getIntent();
         String text = intent.getStringExtra("text");
         String textcolor = intent.getStringExtra("textcolor");
-        String size = intent.getStringExtra("size");
+        String textsize = intent.getStringExtra("textsize");
         String color = intent.getStringExtra("color");
         String orientation = intent.getStringExtra("orientation");
         String font = intent.getStringExtra("font");
@@ -61,8 +61,8 @@ public class Informer extends Activity{
         if(text == null){
             text = TEXT;
         }
-        if(size == null){
-            size = SIZE;
+        if(textsize == null){
+            textsize = SIZE;
         }
         if(color == null){
             color = COLOR;
@@ -100,7 +100,7 @@ public class Informer extends Activity{
 
         bglayout.setBackgroundColor(Color.parseColor(color));
         titleText.setTextColor(Color.parseColor(textcolor));
-        titleText.setTextSize(Integer.parseInt(size));
+        titleText.setTextSize(Integer.parseInt(textsize));
         titleText.setText(text);
 
     }
