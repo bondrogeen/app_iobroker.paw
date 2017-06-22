@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,8 +45,6 @@ public class Informer extends Activity{
 
         bglayout  = (LinearLayout) findViewById(R.id.informer);
 
-
-
         titleText = (TextView) findViewById(R.id.textView6);
         Intent intent = getIntent();
         String text = intent.getStringExtra("text");
@@ -53,6 +52,7 @@ public class Informer extends Activity{
         String size = intent.getStringExtra("size");
         String color = intent.getStringExtra("color");
         String orientation = intent.getStringExtra("orientation");
+        String font = intent.getStringExtra("font");
 
         int rotate = getWindowManager().getDefaultDisplay().getRotation();
 
@@ -84,6 +84,20 @@ public class Informer extends Activity{
 
         }
 
+        if(font!= null){
+
+            if (font.equals("BOLD_ITALIC")) {
+                titleText.setTypeface(null, Typeface.BOLD_ITALIC);
+            }else if (font.equals("BOLD")) {
+                titleText.setTypeface(null, Typeface.BOLD);
+            }else if (font.equals("ITALIC")) {
+                titleText.setTypeface(null, Typeface.ITALIC);
+            }else if (font.equals("NORMAL")) {
+                titleText.setTypeface(null, Typeface.NORMAL);
+            }
+
+        }
+
         bglayout.setBackgroundColor(Color.parseColor(color));
         titleText.setTextColor(Color.parseColor(textcolor));
         titleText.setTextSize(Integer.parseInt(size));
@@ -99,8 +113,14 @@ public class Informer extends Activity{
 
 
 
+
+
     protected void onPause() {
         super.onPause();
         finish();
     }
+
+
+
+
 }

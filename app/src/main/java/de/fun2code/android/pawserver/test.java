@@ -14,12 +14,14 @@ import de.fun2code.android.pawserver.ServerActivity;
 
 public class test {
 
+    public static String TAG = "iobroker.paw";
 
      public static void test(){
-         String TAG = "iobroker.paw";
-         String x = ServerActivity.INSTALL_DIR;
 
+         String x = ServerActivity.INSTALL_DIR;
          Log.i(TAG, "INSTALL_DIR x___ "+ x);
+
+
 
     }
 
