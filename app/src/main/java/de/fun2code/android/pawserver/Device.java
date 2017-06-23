@@ -14,13 +14,13 @@ import java.util.Map;
 public class Device extends PawServerActivity implements CompoundButton.OnCheckedChangeListener {
     public Context contex;
     String pawHome = ServerActivity.INSTALL_DIR + "/";
-
+    SharedPreferences preferences;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.device);
 
-        SharedPreferences preferences = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
+        preferences = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
         boolean hideNotificationIcon = preferences.getBoolean("hideNotificationIcon", false);
         boolean execAutostartScripts = preferences.getBoolean("execAutostartScripts", false);
         boolean useWakeLock = preferences.getBoolean("useWakeLock", true);
@@ -29,6 +29,7 @@ public class Device extends PawServerActivity implements CompoundButton.OnChecke
         pawHome = preferences.getString("PawHome", pawHome);
         boolean restartIpChanged = preferences.getBoolean("restartIpChanged", true);
         boolean startedOnBoot = preferences.getBoolean("startedOnBoot", true);
+        boolean send_proximity = preferences.getBoolean("send_proximity", false);
 
         Switch switch1 = (Switch) findViewById(R.id.switch1);
         switch1.setChecked(startedOnBoot);
@@ -42,6 +43,8 @@ public class Device extends PawServerActivity implements CompoundButton.OnChecke
         switch5.setChecked(sendCall);
         Switch switch6 = (Switch) findViewById(R.id.switch6);
         switch6.setChecked(hideNotificationIcon);
+        Switch switch7 = (Switch) findViewById(R.id.switch7);
+        switch7.setChecked(send_proximity);
 
         switch1.setOnCheckedChangeListener(this);
         switch2.setOnCheckedChangeListener(this);
@@ -49,12 +52,12 @@ public class Device extends PawServerActivity implements CompoundButton.OnChecke
         switch4.setOnCheckedChangeListener(this);
         switch5.setOnCheckedChangeListener(this);
         switch6.setOnCheckedChangeListener(this);
+        switch7.setOnCheckedChangeListener(this);
     }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        SharedPreferences prefs = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
-        SharedPreferences.Editor prefEdit = prefs.edit();
+        SharedPreferences.Editor prefEdit = preferences.edit();
         switch (buttonView.getId()){
             case R.id.switch1:
                 prefEdit.putBoolean("startedOnBoot", isChecked);
@@ -76,6 +79,9 @@ public class Device extends PawServerActivity implements CompoundButton.OnChecke
             case R.id.switch6:
                 prefEdit.putBoolean("hideNotificationIcon", isChecked);
                 break;
+            case R.id.switch7:
+                prefEdit.putBoolean("send_proximity", isChecked);
+                break;
         }
 
         prefEdit.commit();
@@ -87,7 +93,7 @@ public class Device extends PawServerActivity implements CompoundButton.OnChecke
         {
             FileWriter fw = new FileWriter(myFile);
             PrintWriter pw = new PrintWriter(fw);
-            Map<String,?> prefsMap = prefs.getAll();
+            Map<String,?> prefsMap = preferences.getAll();
             for(Map.Entry<String,?> entry : prefsMap.entrySet())
             {
                 pw.println(entry.getKey() + ": " + entry.getValue().toString());

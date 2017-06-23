@@ -15,6 +15,11 @@
             android:layout_height="wrap_content" android:id="@+id/switch5"
             android:textSize="18sp" android:padding="10dp" android:layout_marginTop="10dp"/>
     <Switch
+            android:text="Send proximity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/switch7"
+            android:textSize="18sp" android:padding="10dp" android:layout_marginTop="10dp"/>
+    <Switch
             android:text="@string/hideNotificationIcon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/switch6"

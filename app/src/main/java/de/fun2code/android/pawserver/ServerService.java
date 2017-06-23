@@ -31,6 +31,7 @@ public class ServerService extends PawServerService {
 	private static String device;
 	private static String namespace;
 	private static String light;
+	private static Boolean Listener = false;
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -61,14 +62,18 @@ public class ServerService extends PawServerService {
 		appName = getString(R.string.app_name);
 		activityClass = "de.fun2code.android.pawserver.ServerActivity";
 		notificationDrawableId = R.drawable.ic_launcher;
-		sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+		boolean send_proximity = preferences.getBoolean("send_proximity", false);
 
-		List<Sensor> sensors= sensorManager.getSensorList(Sensor.TYPE_ALL);
-		for (Sensor sensor : sensors) {
-			if(sensor.getType()== 5 ){
-				Sensor light = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
-				sensorManager.registerListener(workingSensorEventListener, light, SensorManager.SENSOR_DELAY_NORMAL);
-				Log.d("Sensors", "" + sensor.getName());
+		if(send_proximity){
+			sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+			List<Sensor> sensors= sensorManager.getSensorList(Sensor.TYPE_ALL);
+			for (Sensor sensor : sensors) {
+				if(sensor.getType()== 5 ){
+					Sensor light = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+					sensorManager.registerListener(workingSensorEventListener, light, SensorManager.SENSOR_DELAY_NORMAL);
+					Log.d("Sensors", "" + sensor.getName());
+					Listener = true;
+				}
 			}
 		}
 
@@ -95,7 +100,9 @@ public class ServerService extends PawServerService {
 
 	public void onDestroy() {
 		super.onDestroy();
-		sensorManager.unregisterListener(workingSensorEventListener);
+		if(Listener){
+			sensorManager.unregisterListener(workingSensorEventListener);
+		}
 	}
 
 	class SendSensor extends AsyncTask<String, String, String> {
