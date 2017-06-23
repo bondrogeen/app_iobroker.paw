@@ -84,11 +84,9 @@ public class ServerService extends PawServerService {
 		}
 
 		public void onSensorChanged(SensorEvent event) {
-			Log.i(TAG, "type "+event.sensor.getType());
 			if(event.sensor.getType() == 8) {
-				//this.proximity = event.values[0];
 				Log.i(TAG, "proximity: "+event.values[0]);
-				light = String.valueOf(event.values[0]);
+				light = String.valueOf(Math.round(event.values[0]));
 				new SendSensor().execute();
 			}
 		}
@@ -111,7 +109,7 @@ public class ServerService extends PawServerService {
 				ResponseHandler<String> res = new BasicResponseHandler();
 				HttpPost postMethod = new HttpPost(url);
 				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-				nameValuePairs.add(new BasicNameValuePair("send", "info.sensors"));
+				nameValuePairs.add(new BasicNameValuePair("send", "proximity"));
 				nameValuePairs.add(new BasicNameValuePair("value", light));
 				nameValuePairs.add(new BasicNameValuePair("device", device));
 				nameValuePairs.add(new BasicNameValuePair("namespace", namespace));
