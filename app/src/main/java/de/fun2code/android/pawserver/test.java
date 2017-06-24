@@ -21,15 +21,6 @@ public class test {
          String x = ServerActivity.INSTALL_DIR;
          Log.i(TAG, "INSTALL_DIR x___ "+ x);
 
-
-
     }
-
-
-    //File myPath = new File(Environment.getExternalStorageDirectory().toString());
-    //String path = getApplicationInfo().dataDir
-    //Log.i("iobroker.paw",myPath.toString() );
-
-    //File myFile = new File(myPath, "MySharedPreferences");
 
 }

@@ -39,8 +39,7 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
     Intent intent;
     ImageView imageView;
     private static Boolean start;
-
-
+    SharedPreferences preferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,7 +58,7 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
         final ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         final android.net.NetworkInfo wifi = connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 
-        SharedPreferences preferences = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
+        preferences = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
         Boolean startedOnBoot = preferences.getBoolean("startedOnBoot", true);
 
         if(startedOnBoot&&wifi.isConnected()){
@@ -290,8 +289,8 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
                     e.printStackTrace();
                 }
 
-                SharedPreferences prefs = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
-                SharedPreferences.Editor prefEdit = prefs.edit();
+                //SharedPreferences prefs = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
+                SharedPreferences.Editor prefEdit = preferences.edit();
                 prefEdit.putString("server", server);
                 prefEdit.putString("port", port);
                 prefEdit.putString("device", device);
@@ -304,7 +303,7 @@ public class ServerActivity extends PawServerActivity implements ServiceListener
                 cr.setApp_on(true);
                 cr.setNamespace(namespace);
 
-                SharedPreferences preferences = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
+                //SharedPreferences preferences = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
                 boolean sendCall = preferences.getBoolean("sendCall", true);
 
                 cr.setSendCall(sendCall);
